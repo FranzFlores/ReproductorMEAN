@@ -9,7 +9,8 @@ var userSchema = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     role: { type: String, required: true },
-    image: { type: String, required: true }
-},{timestamps: {createdAt: 'created_at', updatedAt: 'update_at'}});
+    image: { type: String, required: true },
+    status: { type: Boolean, required: true, default: true}
+},{timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}});
 
 module.exports = mongoose.model("User",userSchema);
