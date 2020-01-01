@@ -3,15 +3,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-var playlistSchema = new Schema({
+var artistSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: String },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }
+    image: { type: String, required: true },
+    status: { type: String, required: true, default: true }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
-module.exports = mongoose.model("Playlist", playlistSchema);
-
+module.exports = mongoose.model("Artist",artistSchema);
