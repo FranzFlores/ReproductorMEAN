@@ -10,7 +10,11 @@ var playlistSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }
+    },
+    songs:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Song"
+    }]
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 module.exports = mongoose.model("Playlist", playlistSchema);
