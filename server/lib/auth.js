@@ -14,11 +14,12 @@ exports.ensureAuth = function (req,res,next) {
 
     //Variable que almacena todo el token sin espacios o caracteres raros
     var token = req.headers.authorization.replace(/['"]+/g, '');
-
+    
+    
     //Decodifica el token y usa una palabra secreta
     try {
         var payload = jwt.decode(token, secret);
-
+        
         if (payload.exp <= moment().unix()) {
             return res.status(401).send("Token Expirado");
         }
@@ -27,6 +28,9 @@ exports.ensureAuth = function (req,res,next) {
         console.log(error);
         return res.status(404).send("Token no válido");
     }
+
+    req.user = payload;
+    next();
 
 }
 

@@ -4,7 +4,7 @@
   "description": "Reproductor Musical con MEAN stack",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon server/index.js"
+    "start": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",

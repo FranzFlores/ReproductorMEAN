@@ -6,6 +6,8 @@ const secret = 'reproductor';
 
 //Crea el token con un duracion de 30 dias 
 exports.createToken = function (user) {
+    console.log(user);
+    
     var payload = {
         id: user._id,
         name: user.name,
@@ -13,7 +15,7 @@ exports.createToken = function (user) {
         email: user.email,
         role: user.role,
         iat: moment().unix(),
-        exp: moment().add(30, 'days').unix
+        exp: moment().add(30, 'days').unix()
     }
 
     return jwt.encode(payload,secret);
