@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/api/user', require('./routes/user.route'));
 app.use('/api/artist',require('./routes/artist.route'));
+app.use('/api/album',require('./routes/album.route'));
 
 // starting the server
 app.listen(app.get('port'), () => {
