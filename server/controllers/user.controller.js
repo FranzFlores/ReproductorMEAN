@@ -59,18 +59,18 @@ UserController.login = (req, res) => {
 };
 
 
-UserController.getUsers = (req,res)=>{
-    User.find({},(err,users)=>{
+UserController.getUsers = (req, res) => {
+    User.find({}, (err, users) => {
         if (err) {
             console.log(err);
             res.status(500).send({ msg: 'Error al obtener usuarios' });
-        }else{
+        } else {
             res.status(200).send(users);
         }
     });
 }
 
-UserController.updateUser = (req, res) => {    
+UserController.updateUser = (req, res) => {
     var userUpdate = {
         name: req.body.name,
         userName: req.body.userName,
@@ -91,39 +91,74 @@ UserController.updateUser = (req, res) => {
     });
 }
 
-UserController.updatePassword = (req,res) =>{    
+UserController.updatePassword = (req, res) => {
     User.findById(req.params.id, (err, account) => {
-      if (err) res.status(500).send('Error en la peticion');
-      if (account) {
-        if (helpers.matchPassword(req.body.oldPassword,account.password)) {
-          var hash = helpers.generateHash(req.body.newPassword);
-          var update = {};
-          update.password = hash;
-          User.findByIdAndUpdate(req.params.id, update, (err, account) => {
-            if (err) res.status(500).send({ message: "Error en la peticion" });
-            else {
-              if (!account) res.status(404).send({ message: "No se actualizo la cuenta" });
-              else res.status(200).send({msg: 'Se ha actulizado la contraseña con éxito'});
+        if (err) res.status(500).send('Error en la peticion');
+        if (account) {
+            if (helpers.matchPassword(req.body.oldPassword, account.password)) {
+                var hash = helpers.generateHash(req.body.newPassword);
+                var update = {};
+                update.password = hash;
+                User.findByIdAndUpdate(req.params.id, update, (err, account) => {
+                    if (err) res.status(500).send({ message: "Error en la peticion" });
+                    else {
+                        if (!account) res.status(404).send({ message: "No se actualizo la cuenta" });
+                        else res.status(200).send({ msg: 'Se ha actulizado la contraseña con éxito' });
+                    }
+                });
             }
-          });
         }
-      }
     });
 };
 
-UserController.deleteUser = (req,res)=>{
-    User.findByIdAndUpdate(req.params.id,{status:false},(err,user)=>{
+UserController.deleteUser = (req, res) => {
+    User.findByIdAndUpdate(req.params.id, { status: false }, (err, user) => {
         if (err) {
             console.log(err);
             res.status(500).send('Error en la peticion');
-        }else{
+        } else {
             if (!user) {
                 res.status(404).send({ msg: "Ocurrió un error al eliminar la cuenta" });
-            }else{
-                res.status(200).send({msg:'Se elimino el usuario con éxito'});
+            } else {
+                res.status(200).send({ msg: 'Se elimino el usuario con éxito' });
             }
         }
     });
+};
+
+UserController.uploadImage = (req, res) => {
+    var file_name = "Imagen no encontrada";
+    console.log(req.files);
+    
+    if (req.files) {
+        var file_path = req.files.image.path;
+        var file_split = file_path.split('\/');
+        var file_name = file_split[2];
+
+        var ext_split = file_name.split('\.');
+        var file_ext = ext_split[1];
+
+        console.log(file_ext);
+        
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif' || file_ext == 'jpeg') {
+            User.findByIdAndUpdate(req.params.id, { image: file_name }, (err, userUpdate) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('Error al subir la imagen del usuario');
+                } else {
+                    if (!userUpdate) {
+                        res.status(404).send({ msg: "Ocurrió un error al actualizar la foto de perfil de usuario" });
+                    } else {
+                        res.status(200).send({ msg: "Se ha actualizado la foto de perfil con éxito" });
+                    }
+                }
+            });
+        } else {
+            res.status(200).send({ msg: "La extension del archivo no es correcta" });
+        }
+    } else {
+        res.status(200).send({ message: "No se ha podido subir ninguna imagen" });
+    }
 };
 
 
