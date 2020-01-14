@@ -23,7 +23,7 @@ ArtistController.createArtist = (req, res) => {
 };
 
 ArtistController.getArtists = (req, res) => {
-    Artist.find({}, (err, artists) => {
+    Artist.find({status:true}).populate({path:'albums',model:'Album',select:'title'}).exec((err, artists) => {
         if (err) {
             console.log(err);
             res.status(500).send({ msg: 'Ocurrió un error al obtener artistas' });
