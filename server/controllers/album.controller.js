@@ -2,6 +2,8 @@
 
 var Album = require('../models/album.model');
 var Artist = require('../models/artist.model');
+var path = require('path');
+var fs = require('fs');
 var AlbumController = {};
 
 AlbumController.createAlbum = (req, res) => {
@@ -82,8 +84,64 @@ AlbumController.deleteAlbum = (req, res) => {
             console.log(err);
             res.status(500).send({ msg: 'Ocurrió un error al eliminar album' });
         } else {
-            console.log(album);
-            res.status(200).send({ msg: 'Se ha eliminado el album con éxito' });
+            Song.find({ albumId: album._id }).update({ status: false }, (err, song) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send({ msg: 'Ocurrió un error al eliminar el album' });
+                } else {
+                    if (!song) {
+                        res.status(404).send({ msg: "El album no ha sido eliminado" });
+                    } else {
+                        res.status(200).send({ msg: 'Se ha eliminado el album con éxito' });
+                    }
+                }
+            });
+        }
+    });
+
+};
+
+AlbumController.uploadImage = (req, res) => {
+    var file_name = "Imagen no encontrada";
+
+    if (req.files) {
+        var file_path = req.files.image.path;
+        var file_split = file_path.split('\/');
+
+        var file_name = file_split[(file_split.length - 1)];
+        var ext_split = file_name.split('\.');
+        var file_ext = ext_split[1];
+
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif' || file_ext == 'jpeg') {
+            Album.findByIdAndUpdate(req.params.id, { image: file_name }, (err, albumUpdate) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('Error al subir la imagen del album');
+                } else {
+                    if (!albumUpdate) {
+                        res.status(404).send({ msg: "Ocurrió un error al actualizar la foto de album" });
+                    } else {
+                        res.status(200).send({ msg: "Se ha actualizado la foto del album con éxito" });
+                    }
+                }
+            });
+        } else {
+            res.status(200).send({ msg: "La extension del archivo no es correcta" });
+        }
+    } else {
+        res.status(200).send({ message: "No se ha podido subir ninguna imagen" });
+    }
+};
+
+AlbumController.getImagenFile = (req, res) => {
+    var imageFile = req.params.imageFile;
+    var path_file = './server/uploads/albums/' + imageFile
+
+    fs.exists(path_file, function (exists) {
+        if (exists) {
+            res.sendFile(path.resolve(path_file));
+        } else {
+            res.status(200).send({ message: "No existe la imagen" });
         }
     });
 };
