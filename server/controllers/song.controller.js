@@ -7,7 +7,8 @@ SongController.createSong = (req, res) => {
     new Song({
         title: req.body.title,
         number: req.body.number,
-        file:'null',
+        file: 'null',
+        reproductions: 0,
         albumId: req.body.album
     }).save((err, song) => {
         if (err) {

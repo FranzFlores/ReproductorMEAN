@@ -7,6 +7,7 @@ var songSchema = new Schema({
     title: { type: String, required: true },
     number: { type: Number, required: true },
     file: { type: String, required: true },
+    reproductions: { type: Number, required: true },
     albumId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Album"
