@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="text-center mt-2">
+        <img src="../../../assets/images/logo.jpg" alt="Logo" width="20%">
+    </div>
+    <hr>
+
+    
+    <div class="text-center">
+        <app-alert class="text-center"></app-alert>
+        <h2>Regístrate llenando los siguientes datos</h2>
+        <div class="row">
+            <div class="offset-md-4"></div>
+            <div class="col-md-4">
+                <form #signUpForm="ngForm" (ngSubmit)="createAccount(signUpForm)">
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" name="name" placeholder="Nombres y Apellidos" required autocomplete="off"
+                        [(ngModel)]="userService.selectUser.name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" name="userName" placeholder="Nombre de Usuario" required autocomplete="off"
+                        [(ngModel)]="userService.selectUser.userName">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="email" name="email" placeholder="Correo Electrónico" required autocomplete="off"
+                        [(ngModel)]="userService.selectUser.email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="password" name="password" placeholder="Contraseña" required autocomplete="off"
+                        [(ngModel)]="userService.selectUser.password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-success">Registrarse</button>
+                    </div>
+                </form>
+                <h6>¿Tienes Cuenta?<a href="#">Iniciar Sesión</a></h6>
+            </div>
+        </div>
+    </div>
+</div>

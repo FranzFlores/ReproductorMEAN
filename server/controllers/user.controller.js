@@ -10,6 +10,9 @@ var fs = require('fs');
 
 UserController.createUser = (req, res) => {
     //Busca por email para comprobar si el usuario ya existe
+    
+    console.log(req.body);
+    
     User.findOne({ email: req.body.email }, (err, personResult) => {
         if (err) {
             console.log(err);
