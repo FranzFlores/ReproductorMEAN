@@ -45,7 +45,7 @@ UserController.createUser = (req, res) => {
     });
 };
 
-UserController.login = (req, res) => {
+UserController.login = (req, res) => {    
     User.findOne({ email: req.body.email }, (err, user) => {
         if (err) {
             console.log(err);
@@ -55,7 +55,7 @@ UserController.login = (req, res) => {
                 res.status(404).send({ msg: 'El usuario no esta registrado' });
             } else {
                 if (helpers.matchPassword(req.body.password, user.password)) {
-                    res.status(200).send({ token: jwt.createToken(user) });
+                    res.status(200).send({ token: jwt.createToken(user),data:user  });
                 } else {
                     res.status(401).send({ msg: 'Clave Incorrecta' });
                 }

@@ -1,3 +1,33 @@
 <div class="container">
+    <div class="text-center mt-2">
+        <img src="../../../assets/images/logo.jpg" alt="Logo" width="20%">
+    </div>
+    <hr>
+
     
+    <div class="text-center">
+        <h2>Para continuar, ingresa a Alesso</h2>
+        <div class="row">
+            <div class="offset-md-4"></div>
+            <div class="col-md-4">
+                <app-alert class="text-center"></app-alert>
+                <form #loginForm="ngForm" (ngSubmit)="login()">
+                    <div class="form-group">
+                        <input #username="ngModel" class="form-control form-control-lg" type="email" name="email" placeholder="Correo Electrónico" required autocomplete="off"
+                        [(ngModel)]="user.email">
+                    </div>
+                    <div class="form-group">
+                        <input #username="ngModel" class="form-control form-control-lg" type="password" name="password" placeholder="Contraseña" required autocomplete="off"
+                        [(ngModel)]="user.password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-success">Iniciar Sesión</button>
+                    </div>
+                </form>
+                <hr>
+                <h6>¿No Tienes Cuenta?</h6>
+                <a href="" class="btn btn-lg btn-secondary">Suscríbete a Alesso</a>
+            </div>
+        </div>
+    </div>
 </div>
