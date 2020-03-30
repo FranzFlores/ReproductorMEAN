@@ -1,0 +1,50 @@
+#dashboard{
+    height: 100%;
+}
+
+#left-bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    color: #fff;
+    background-color: #757575;
+    height: 100%;
+    padding: 70px 30px 70px 85px;
+}
+
+h2{
+    font-weight: bold;
+}
+
+.subtitle{
+    font-size: 14px;
+}
+
+#menu a{
+    position: relative;
+    display: block;
+    color: #fff;
+    padding: 8px 20px 8px 45px;
+    margin-bottom: 5px;
+}
+
+#menu i{
+    position: absolute;
+    top: 11px;
+    left: 25px;
+}
+
+#menu a:hover{
+    text-decoration: none;
+}
+
+#content{
+    background-color: #fff5f5;
+    height: 100%;
+    margin-left: 340px;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+

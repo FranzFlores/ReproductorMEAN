@@ -1,1 +1,21 @@
-<p>dashboard works!</p>
+<div id="dashboard">
+    <div id="left-bar">
+    <h2>Bienvenido</h2>
+    <p>Reproductor Musical</p>
+    <div id="menu">
+        <nav>
+            <ul class="list-unstyled">
+                <li><a routerLink="./"><fa-icon [icon]="artistIcon"></fa-icon>  Artistas</a></li>
+                <li><a routerLink="./"><fa-icon [icon]="albumIcon"></fa-icon>  Álbumes</a></li>
+                <li><a routerLink="./"><fa-icon [icon]="songIcon"></fa-icon>  Canciones</a></li>
+                <li><a routerLink="./"><fa-icon [icon]="playlistIcon"></fa-icon>  Playlist</a></li>
+                <li><a routerLink="./"><fa-icon [icon]="configurationIcon"></fa-icon>  Configuración</a></li>
+                <li><a routerLink="./account" [routerLinkActive]="['active']"><fa-icon [icon]="accountIcon"></fa-icon> Gestión de Cuentas</a></li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+    <div id="content">
+        <router-outlet></router-outlet>  
+    </div>
+</div>
