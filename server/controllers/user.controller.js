@@ -117,7 +117,7 @@ UserController.updatePassword = (req, res) => {
     });
 };
 
-UserController.deleteUser = (req, res) => {
+UserController.deleteUser = (req, res) => {    
     User.findByIdAndUpdate(req.params.id, { status: false }, (err, user) => {
         if (err) {
             console.log(err);
@@ -127,6 +127,21 @@ UserController.deleteUser = (req, res) => {
                 res.status(404).send({ msg: "Ocurrió un error al eliminar la cuenta" });
             } else {
                 res.status(200).send({ msg: 'Se elimino el usuario con éxito' });
+            }
+        }
+    });
+};
+
+UserController.restoreUser = (req, res) => {    
+    User.findByIdAndUpdate(req.params.id, { status: true }, (err, user) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error en la peticion');
+        } else {
+            if (!user) {
+                res.status(404).send({ msg: "Ocurrió un error al restaurar la cuenta" });
+            } else {
+                res.status(200).send({ msg: 'Se restauro el usuario con éxito' });
             }
         }
     });

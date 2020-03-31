@@ -26,8 +26,20 @@ export class UserService {
     return this.http.get(`${this.URL_API}/users`);
   }
 
+  //Actualizar la informacion del usuario
   updateUser(user:User){
-    return this.http.put(`${this.URL_API}/updateUser/${user.id}`,user);
+    return this.http.put(`${this.URL_API}/updateUser/${user._id}`,user);
   }
+
+  //Dar de baja un usuario
+  deleteUser(id:string){
+    return this.http.put(`${this.URL_API}/deleteUser/${id}`,id);
+  }
+
+  //Restaurar un usuario
+  restoreUser(id:string){
+    return this.http.put(`${this.URL_API}/restoreUser/${id}`,id);
+  }
+
 
 }

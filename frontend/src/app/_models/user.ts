@@ -1,6 +1,6 @@
 export class User {
     constructor(
-        id = '',
+        _id = '',
         name = '',
         userName = '',
         email = '',
@@ -9,7 +9,7 @@ export class User {
         newPassword = '',
         oldPassword = ''
     ){
-        this.id = id;
+        this._id = _id;
         this.name = name;
         this.userName = userName;
         this.email = email;
@@ -19,7 +19,7 @@ export class User {
         this.oldPassword = oldPassword;
     }
 
-    id: string;
+    _id: string;
     name:string;
     userName:string;
     email: string;

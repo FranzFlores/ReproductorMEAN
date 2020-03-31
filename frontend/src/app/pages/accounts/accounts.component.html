@@ -12,7 +12,7 @@
 
     <app-alert></app-alert>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Nombre</th>
@@ -28,11 +28,11 @@
                 <td>{{user.role}}</td>
                 <td>
                     <button *ngIf="user.status == true" type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#deleteAccount">
+                        data-target="#deleteAccount" (click)="selectUser(user)">
                         <fa-icon [icon]="deleteIcon"></fa-icon>
                     </button>
                     <button *ngIf="user.status == false" type="button" class="btn btn-success" data-toggle="modal"
-                        data-target="#restoreAccount">
+                        data-target="#restoreAccount" (click)="selectUser(user)">
                         <fa-icon [icon]="restoreIcon"></fa-icon>
                     </button>
                 </td>
@@ -40,8 +40,8 @@
         </tbody>
     </table>
 
-        <!-- Modal Dar de Baja una cuenta -->
-        <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Modal Dar de Baja una cuenta -->
+    <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -52,15 +52,41 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está seguro de que desea eliminar la cuenta</p>
-                    <!-- <form #deleteAccountForm="ngForm" (ngSubmit)="deleteAccount(deleteAccountForm)">
-                        <input type="text" hidden name="external_id" #name="ngModel"
-                            [(ngModel)]="accountService.selectPerson.account.external_id">
+                    <p>¿Está seguro de que desea eliminar la cuenta?</p>
+                    <form #deleteUserForm="ngForm" (ngSubmit)="deleteUser(deleteUserForm)">
+                        <input type="text" hidden name="id" #name="ngModel" [(ngModel)]="userService.selectUser._id">
                         <div class="modal-footer">
-                            <button #btn_delete_close type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button #btn_delete_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Aceptar</button>
                         </div>
-                    </form> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal para Restaurar una cuenta -->
+        <div class="modal fade" id="restoreAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Restaurar Cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea restaurar la cuenta?</p>
+                    <form #restoreUserForm="ngForm" (ngSubmit)="restoreUser(restoreUserForm)">
+                        <input type="text" hidden name="id" #name="ngModel" [(ngModel)]="userService.selectUser._id">
+                        <div class="modal-footer">
+                            <button #btn_restore_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
