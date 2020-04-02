@@ -7,12 +7,44 @@ var UserController = {};
 var path = require('path');
 var fs = require('fs');
 
+//Crear Usuario Normal
+UserController.createUser = (req, res) => { 
+    //Busca por email para comprobar si el usuario ya existe      
+    User.findOne({ email: req.body.email }, (err, personResult) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Error al guardar el usuario' });
+        } else {
+            if (personResult) {
+                res.status(200).send({ msg: 'El usuario ya esta registrado' });
+            } else {
+                new User({
+                    name: req.body.name,
+                    userName: req.body.userName,
+                    email: req.body.email,
+                    password: helpers.generateHash(req.body.password),
+                    role: 'Usuario',
+                    image: "null"
+                }).save((err, newUser) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send({ msg: 'Error al guardar el usuario' });
+                    } else {
+                        if (!newUser) {
+                            res.status(404).send({ msg: 'No se ha registrado el usuario' });
+                        } else {
+                            res.status(200).send({ user: newUser });
+                        }
+                    }
+                })
+            }
+        }
+    });
+};
 
-UserController.createUser = (req, res) => {
-    //Busca por email para comprobar si el usuario ya existe
-    
-    console.log(req.body);
-    
+
+UserController.createAdministrador = (req, res) => {
+    //Busca por email para comprobar si el usuario ya existe    
     User.findOne({ email: req.body.email }, (err, personResult) => {
         if (err) {
             console.log(err);
@@ -44,6 +76,8 @@ UserController.createUser = (req, res) => {
         }
     });
 };
+
+
 
 UserController.login = (req, res) => {    
     User.findOne({ email: req.body.email }, (err, user) => {

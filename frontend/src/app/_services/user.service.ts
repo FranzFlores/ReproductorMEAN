@@ -17,8 +17,14 @@ export class UserService {
     this.selectUser = new User();
   }
 
+  //Registrar usuario normal  
   signup(user:User){
-    return this.http.post(this.URL_API+'signup',user);
+    return this.http.post(`${this.URL_API}/signup`,user);
+  }
+
+  //Crear usuario administrador
+  createAdministrador(user:User){
+    return this.http.post(`${this.URL_API}/createAdministrador`,user);
   }
 
   //Obtiene el listado de todos los usuarios

@@ -9,6 +9,7 @@ var md_upload = multipart({ uploadDir: './server/uploads/users' });
 var userController = require('../controllers/user.controller');
 const md_auth = require('../lib/auth');
 router.post('/signup', userController.createUser);
+router.post('/createAdministrador',md_auth.ensureAuth,userController.createAdministrador);
 router.post('/login', userController.login);
 router.get('/users', md_auth.ensureAuth, userController.getUsers);
 router.put('/updateUser/:id', md_auth.ensureAuth, userController.updateUser);

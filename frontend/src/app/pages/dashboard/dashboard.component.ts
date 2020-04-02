@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {faMusic,faAddressCard,faUserFriends,faPlayCircle,faDrum,faCog} from '@fortawesome/free-solid-svg-icons';
+import { Router } from "@angular/router";
 
+import { faSignOutAlt, faMusic,faAddressCard,faUserFriends,faPlayCircle,faDrum,faCog} from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from "src/app/_services/auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,14 +19,24 @@ export class DashboardComponent implements OnInit {
   playlistIcon = faPlayCircle;
   configurationIcon = faCog;
   accountIcon = faAddressCard;
+  exitIcon = faSignOutAlt;
 
-  constructor() { }
+  constructor(
+    private auth: AuthService,
+    private router:Router
+  ) { }
 
   showArtistMenu(){
     this.toggleArtist = !this.toggleArtist;
   }
 
   ngOnInit(): void {
+  }
+
+  logout(event){
+    this.auth.logout();
+    this.router.navigate(['/'])
+    event.preventDefault();
   }
 
 }
