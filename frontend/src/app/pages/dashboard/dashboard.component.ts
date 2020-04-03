@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   exitIcon = faSignOutAlt;
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private router:Router
   ) { }
 
@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.auth.userData.role);
+    
   }
 
   logout(event){

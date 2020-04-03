@@ -10,7 +10,7 @@
                 <li><a routerLink="./"><fa-icon [icon]="songIcon"></fa-icon>  Canciones</a></li>
                 <li><a routerLink="./"><fa-icon [icon]="playlistIcon"></fa-icon>  Playlist</a></li>
                 <li><a routerLink="./"><fa-icon [icon]="configurationIcon"></fa-icon>  Configuración</a></li>
-                <li><a *ngIf="auth.userData.role.name == 'Administrador'" routerLink="./account" [routerLinkActive]="['active']"><fa-icon [icon]="accountIcon"></fa-icon> Gestión de Cuentas</a></li>
+                <li><a *ngIf="auth.userData.role == 'Administrador'" routerLink="./account" [routerLinkActive]="['active']"><fa-icon [icon]="accountIcon"></fa-icon> Gestión de Cuentas</a></li>
                 <li><a href="#" (click)="logout($event)"><fa-icon [icon]="exitIcon"></fa-icon>  Cerrar Sesión</a></li>
             </ul>
         </nav>

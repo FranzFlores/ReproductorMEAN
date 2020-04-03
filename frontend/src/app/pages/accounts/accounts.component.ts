@@ -18,6 +18,7 @@ export class AccountsComponent implements OnInit {
   //Referencias a los modals del html
   @ViewChild('btn_delete_close', { static: false }) btn_delete_close: ElementRef<HTMLElement>;
   @ViewChild('btn_restore_close', { static: false }) btn_restore_close: ElementRef<HTMLElement>;
+  @ViewChild('btn_administrador', { static: false }) btn_administrador: ElementRef<HTMLElement>;
 
   //Iconos 
   deleteIcon = faTrashAlt;
@@ -49,7 +50,8 @@ export class AccountsComponent implements OnInit {
   createAdministrador(form:NgForm){
     this.userService.createAdministrador(form.value).subscribe(data=>{
       this.alertService.success("Se ha creado el administrador de manera correcta");
-      
+      this.getUsers();
+      this.btn_administrador.nativeElement.click();
     });
   }
 
