@@ -22,6 +22,20 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userService.selectUser.name = this.authService.userData.name;
+    this.userService.selectUser.userName = this.authService.userData.userName;
+    this.userService.selectUser.email = this.authService.userData.email;
+  }
+
+
+  updateUser(form: NgForm) {
+    this.userService.updateUser(form.value,this.authService.userData._id).subscribe(data=>{
+      this.alertService.success("Se han actualizado los datos del usuario con éxito");
+      form.reset();
+    },error=>{
+      console.log(error);
+      this.alertService.error("No se pudo actualizar los datos del usuario");
+    })
   }
 
 

@@ -114,9 +114,9 @@ UserController.updateUser = (req, res) => {
     var userUpdate = {
         name: req.body.name,
         userName: req.body.userName,
-        role: req.body.role
+        email: req.body.email
     }
-
+    
     User.findByIdAndUpdate(req.params.id, userUpdate, (err, user) => {
         if (err) {
             console.log(err);

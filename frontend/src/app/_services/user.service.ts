@@ -33,8 +33,8 @@ export class UserService {
   }
 
   //Actualizar la informacion del usuario
-  updateUser(user:User){
-    return this.http.put(`${this.URL_API}/updateUser/${user._id}`,user);
+  updateUser(user:User,id){
+    return this.http.put(`${this.URL_API}/updateUser/${id}`,user);
   }
 
   //Dar de baja un usuario
