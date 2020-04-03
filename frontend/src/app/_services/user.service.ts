@@ -47,5 +47,9 @@ export class UserService {
     return this.http.put(`${this.URL_API}/restoreUser/${id}`,id);
   }
 
+  //Actualizar Contrasena del ususario
+  updatePassword(user:User,id){
+    return this.http.put(`${this.URL_API}//updatePassword/${id}`,user);
+  }
 
 }

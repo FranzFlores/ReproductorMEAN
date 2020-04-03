@@ -30,9 +30,7 @@ export class DashboardComponent implements OnInit {
     this.toggleArtist = !this.toggleArtist;
   }
 
-  ngOnInit(): void {
-    console.log(this.auth.userData.role);
-    
+  ngOnInit(): void {   
   }
 
   logout(event){

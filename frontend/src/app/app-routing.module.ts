@@ -5,6 +5,7 @@ import { SignupComponent } from "./pages/signup/signup.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { AccountsComponent } from "./pages/accounts/accounts.component";
+import { SettingsComponent } from "./pages/settings/settings.component";
 
 import { AuthGuard } from "./_guards/auth.guard";
 
@@ -16,7 +17,8 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'account', component: AccountsComponent, canActivate: [AuthGuard] }
+      { path: 'account', component: AccountsComponent, canActivate: [AuthGuard] },
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
     ]
   }
 ];

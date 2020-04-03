@@ -18,6 +18,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AccountsComponent } from './pages/accounts/accounts.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AccountsComponent } from './pages/accounts/accounts.component';
     SignupComponent,
     AlertComponent,
     DashboardComponent,
-    AccountsComponent
+    AccountsComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

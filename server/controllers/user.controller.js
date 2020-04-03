@@ -131,7 +131,7 @@ UserController.updateUser = (req, res) => {
     });
 }
 
-UserController.updatePassword = (req, res) => {
+UserController.updatePassword = (req, res) => {    
     User.findById(req.params.id, (err, account) => {
         if (err) res.status(500).send('Error en la peticion');
         if (account) {

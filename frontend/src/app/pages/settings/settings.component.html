@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="text-center">
+        <h2>Configuración de la Cuenta</h2>
+
+        <app-alert></app-alert>
+
+        <h3>Actualizar Contraseña</h3>
+        
+        <form #updatePasswordForm="ngForm" (ngSubmit)="updatePassword(updatePasswordForm)">
+            <div class="form-group">
+                <input class="form-control" type="password" name="oldPassword" placeholder="Contraseña Antigua"
+                    required autocomplete="off" [(ngModel)]="userService.selectUser.oldPassword">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="newPassword" placeholder="Nueva Contraseña"
+                    required autocomplete="off" [(ngModel)]="userService.selectUser.newPassword">
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success">Actualizar Contraseña</button>
+            </div>
+        </form>
+
+        <hr>
+    
+    </div>
+
+
+</div>
