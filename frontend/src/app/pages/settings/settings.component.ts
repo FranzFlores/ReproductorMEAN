@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { UserService } from "../../_services/user.service";
 import { AlertService } from '../../_services/alert.service';
 import { AuthService } from "../../_services/auth.service";
-
-
-
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +15,7 @@ export class SettingsComponent implements OnInit {
 
   file: File;
   showImage: boolean = false;
+  @ViewChild('imageUser') userImageInput: ElementRef<HTMLElement>;;
 
   constructor(
     public userService: UserService,
@@ -58,10 +57,13 @@ export class SettingsComponent implements OnInit {
 
   uploadUserImage(input: any) {
     const file = input.files[0];
-    
+
     if (file) {
       this.file = file;
       this.userService.uploadUserImage(this.authService.userData._id, this.file).subscribe(data => {
+        var user = data as User; 
+        this.userService.selectUser.image = user.image;
+        this.userImageInput.nativeElement.nodeValue = "";
         this.alertService.success("Se ha subido la imagen de usuario con éxito");
       }, error => {
         console.log(error);

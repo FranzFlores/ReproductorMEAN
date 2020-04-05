@@ -57,8 +57,12 @@ export class UserService {
     var formData:FormData = new FormData();
     formData.append('image',file,file.name);    
     console.log(formData);
-        
     return this.http.put(`${this.URL_API}/uploadImageUser/${id}`,formData);
+  }
+
+  //Obtener el nombre de la imagen actualizada
+  getUserImage(name:string){
+    return this.http.get(`${this.URL_API}/getImageUser/${name}`);
   }
 
 }

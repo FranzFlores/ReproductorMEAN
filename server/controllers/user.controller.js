@@ -8,7 +8,7 @@ var path = require('path');
 var fs = require('fs');
 
 //Crear Usuario Normal
-UserController.createUser = (req, res) => { 
+UserController.createUser = (req, res) => {
     //Busca por email para comprobar si el usuario ya existe      
     User.findOne({ email: req.body.email }, (err, personResult) => {
         if (err) {
@@ -79,7 +79,7 @@ UserController.createAdministrador = (req, res) => {
 
 
 
-UserController.login = (req, res) => {    
+UserController.login = (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
         if (err) {
             console.log(err);
@@ -89,7 +89,7 @@ UserController.login = (req, res) => {
                 res.status(404).send({ msg: 'El usuario no esta registrado' });
             } else {
                 if (helpers.matchPassword(req.body.password, user.password)) {
-                    res.status(200).send({ token: jwt.createToken(user),data:user  });
+                    res.status(200).send({ token: jwt.createToken(user), data: user });
                 } else {
                     res.status(401).send({ msg: 'Clave Incorrecta' });
                 }
@@ -116,7 +116,7 @@ UserController.updateUser = (req, res) => {
         userName: req.body.userName,
         email: req.body.email
     }
-    
+
     User.findByIdAndUpdate(req.params.id, userUpdate, (err, user) => {
         if (err) {
             console.log(err);
@@ -131,7 +131,7 @@ UserController.updateUser = (req, res) => {
     });
 }
 
-UserController.updatePassword = (req, res) => {    
+UserController.updatePassword = (req, res) => {
     User.findById(req.params.id, (err, account) => {
         if (err) res.status(500).send('Error en la peticion');
         if (account) {
@@ -151,7 +151,7 @@ UserController.updatePassword = (req, res) => {
     });
 };
 
-UserController.deleteUser = (req, res) => {    
+UserController.deleteUser = (req, res) => {
     User.findByIdAndUpdate(req.params.id, { status: false }, (err, user) => {
         if (err) {
             console.log(err);
@@ -166,7 +166,7 @@ UserController.deleteUser = (req, res) => {
     });
 };
 
-UserController.restoreUser = (req, res) => {    
+UserController.restoreUser = (req, res) => {
     User.findByIdAndUpdate(req.params.id, { status: true }, (err, user) => {
         if (err) {
             console.log(err);
@@ -182,19 +182,19 @@ UserController.restoreUser = (req, res) => {
 };
 
 UserController.uploadImage = (req, res) => {
-    var file_name = "Imagen no encontrada";    
+    var file_name = "Imagen no encontrada";
 
-    
+
     if (req.files) {
         var file_path = req.files.image.path;
         if (process.platform == 'darwin') {
             var file_split = file_path.split('\/');
-        }else{
+        } else {
             var file_split = file_path.split('\\');
         }
-       
-        
-        var file_name = file_split[(file_split.length-1)];
+
+
+        var file_name = file_split[(file_split.length - 1)];
         var ext_split = file_name.split('\.');
         var file_ext = ext_split[1];
 
@@ -207,7 +207,10 @@ UserController.uploadImage = (req, res) => {
                     if (!userUpdate) {
                         res.status(404).send({ msg: "Ocurrió un error al actualizar la foto de perfil de usuario" });
                     } else {
-                        res.status(200).send({ msg: "Se ha actualizado la foto de perfil con éxito" });
+                        User.findById(userUpdate.id, (err, user) => {
+                            if (err) console.log(err);
+                            else res.status(200).send({ image: user.image });
+                        });
                     }
                 }
             });
@@ -219,16 +222,16 @@ UserController.uploadImage = (req, res) => {
     }
 };
 
-UserController.getImageFile = (req,res) =>{
+UserController.getImageFile = (req, res) => {
     var imageFile = req.params.imageFile;
-    var path_file = './server/uploads/users/'+imageFile
+    var path_file = './server/uploads/users/' + imageFile
 
-    fs.exists(path_file,function(exists) {
-      if (exists) {
-        res.sendFile(path.resolve(path_file));
-      }else {
-        res.status(200).send({message:"No existe la imagen"});
-      }
+    fs.exists(path_file, function (exists) {
+        if (exists) {
+            res.sendFile(path.resolve(path_file));
+        } else {
+            res.status(200).send({ message: "No existe la imagen" });
+        }
     });
 };
 
