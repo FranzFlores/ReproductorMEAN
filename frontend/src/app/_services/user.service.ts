@@ -49,7 +49,16 @@ export class UserService {
 
   //Actualizar Contrasena del ususario
   updatePassword(user:User,id){
-    return this.http.put(`${this.URL_API}//updatePassword/${id}`,user);
+    return this.http.put(`${this.URL_API}/updatePassword/${id}`,user);
+  }
+
+  //Subir imagen de usuario
+  uploadUserImage(id,file:File){
+    var formData:FormData = new FormData();
+    formData.append('image',file,file.name);    
+    console.log(formData);
+        
+    return this.http.put(`${this.URL_API}/uploadImageUser/${id}`,formData);
   }
 
 }
