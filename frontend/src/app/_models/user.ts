@@ -7,7 +7,8 @@ export class User {
         password = '',
         deleted = false,
         newPassword = '',
-        oldPassword = ''
+        oldPassword = '',
+        image = ''
     ){
         this._id = _id;
         this.name = name;
@@ -17,6 +18,7 @@ export class User {
         this.deleted = deleted;
         this.newPassword = newPassword;
         this.oldPassword = oldPassword;
+        this.image = image;
     }
 
     _id: string;
@@ -27,6 +29,7 @@ export class User {
     external_id: string;
     getHash: boolean;
     deleted: boolean;
+    image:string;
     newPassword: string;
     oldPassword: string;
 }

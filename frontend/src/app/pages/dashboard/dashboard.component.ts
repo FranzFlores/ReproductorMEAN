@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 
 import { faSignOutAlt, faMusic,faAddressCard,faUserFriends,faPlayCircle,faDrum,faCog} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from "src/app/_services/auth.service";
+import { UserService } from 'src/app/_services/user.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -23,15 +25,16 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
+    public userService:UserService,
     private router:Router
   ) { }
 
-  showArtistMenu(){
-    this.toggleArtist = !this.toggleArtist;
+
+  ngOnInit(): void {
+    this.userService.selectUser.image = this.auth.userData.image;
+    this.userService.selectUser.name = this.auth.userData.name;      
   }
 
-  ngOnInit(): void {   
-  }
 
   logout(event){
     this.auth.logout();

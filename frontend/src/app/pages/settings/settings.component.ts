@@ -16,6 +16,7 @@ import { AuthService } from "../../_services/auth.service";
 export class SettingsComponent implements OnInit {
 
   file: File;
+  showImage: boolean = false;
 
   constructor(
     public userService: UserService,
@@ -27,6 +28,10 @@ export class SettingsComponent implements OnInit {
     this.userService.selectUser.name = this.authService.userData.name;
     this.userService.selectUser.userName = this.authService.userData.userName;
     this.userService.selectUser.email = this.authService.userData.email;
+    if(this.authService.userData.image != 'null'){
+      this.showImage = true;
+      this.userService.selectUser.image = this.authService.userData.image;
+    }
   }
 
 

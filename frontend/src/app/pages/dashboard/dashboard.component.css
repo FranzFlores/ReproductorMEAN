@@ -8,8 +8,8 @@
     top: 0;
     bottom: 0;
     width: 25%;
-    color: #fff;
-    background-color: #757575;
+    color: white;
+    background-color: #1c1c1f;
     height: 100%;
     padding: 70px 30px 70px 85px;
 }
@@ -18,14 +18,27 @@ h2{
     font-weight: bold;
 }
 
-.subtitle{
-    font-size: 14px;
+.name{
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -25px;
+}
+
+.image-user{
+    border-radius: 100px;
+    width: 65px;
+}
+
+.image-container{
+    margin-bottom: 10px;
+    position: relative;
+    padding: 8px 20px 8px 45px;
 }
 
 #menu a{
     position: relative;
     display: block;
-    color: #fff;
+    color: #ddd;
     padding: 8px 20px 8px 45px;
     margin-bottom: 5px;
 }
@@ -38,7 +51,9 @@ h2{
 
 #menu a:hover{
     text-decoration: none;
+    color: #fff;
 }
+
 
 #content{
     background-color: #fff5f5;
@@ -47,4 +62,5 @@ h2{
     padding: 30px 40px;
     overflow-y: auto;
 }
+
 

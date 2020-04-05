@@ -1,8 +1,12 @@
 <div id="dashboard">
     <div id="left-bar">
     <h2>Bienvenido</h2>
-    <p>Reproductor Musical</p>
     <div id="menu">
+        <div class="image-container">
+            <img src="http://localhost:3000/api/user/getImageUser/{{userService.selectUser.image}}"
+                class="image-user" alt="">
+            <p class="name">{{userService.selectUser.name}}</p>
+        </div> 
         <nav>
             <ul class="list-unstyled">
                 <li><a routerLink="./"><fa-icon [icon]="artistIcon"></fa-icon>  Artistas</a></li>
