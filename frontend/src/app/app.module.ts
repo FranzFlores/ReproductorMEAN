@@ -19,6 +19,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { ArtistsComponent } from './pages/artists/artists.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
     AlertComponent,
     DashboardComponent,
     AccountsComponent,
-    SettingsComponent
+    SettingsComponent,
+    ArtistsComponent
   ],
   imports: [
     BrowserModule,

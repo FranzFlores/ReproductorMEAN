@@ -8,6 +8,7 @@ import { AccountsComponent } from "./pages/accounts/accounts.component";
 import { SettingsComponent } from "./pages/settings/settings.component";
 
 import { AuthGuard } from "./_guards/auth.guard";
+import { ArtistsComponent } from './pages/artists/artists.component';
 
 const routes: Routes = [
   { path: '', component: SignupComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     children: [
       { path: 'account', component: AccountsComponent, canActivate: [AuthGuard] },
       { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+      { path: 'artist', component: ArtistsComponent, canActivate: [AuthGuard]}
     ]
   }
 ];
