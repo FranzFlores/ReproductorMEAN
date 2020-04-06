@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -18,7 +18,12 @@ export class ArtistsComponent implements OnInit {
   @ViewChild('btn_create_close', { static: false }) btn_create_close: ElementRef<HTMLElement>;
 
   addIcon = faPlus;
-  
+  editIcon = faEdit;
+  deleteIcon = faTrashAlt;
+  file: File;
+
+  //Paginacion 
+  pages: number = 1;
 
   constructor(
     public artistService: ArtistService,
@@ -28,6 +33,7 @@ export class ArtistsComponent implements OnInit {
 
   ngOnInit(): void {
     this.artistService.selectArtist = new Artist();
+    this.artistsList();
   }
 
   createArtist(form: NgForm) {
@@ -35,11 +41,18 @@ export class ArtistsComponent implements OnInit {
       this.artistService.createArtist(form.value).subscribe(data => {
         this.alertService.success("Se ha creado el artista de manera correcta");
         this.btn_create_close.nativeElement.click();
+        this.artistsList();
       }, error => {
         console.log(error);
         this.alertService.error("No se pudo crear el artista");
       });
     }
+  }
+
+  artistsList() {
+    this.artistService.getArtists().subscribe(res => {
+      this.artistService.artists = res as Artist[];
+    })
   }
 
 }

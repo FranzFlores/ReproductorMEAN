@@ -5,8 +5,38 @@
         <fa-icon [icon]="addIcon"></fa-icon> Agregar Artista
     </button>
 
-
     <app-alert></app-alert>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-4" *ngFor="let artist of artistService.artists | paginate:{itemsPerPage:3, currentPage:pages} ">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="http://localhost:3000/api/artist/getImageArtist/{{artist.image}}"
+                        alt="Card image cap">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{artist.name}}</h5>
+                        <p class="card-text">{{artist.description}}</p>
+                        <button *ngIf="auth.userData.role == 'Administrador'" class="btn btn-success mr-1">
+                            <fa-icon [icon]="editIcon"></fa-icon> Editar
+                        </button>
+                        <button *ngIf="auth.userData.role == 'Administrador'" class="btn btn-danger ml-1">
+                            <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="text-center mt-3">
+            <pagination-controls autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
+                (pageChange)="pages = $event"></pagination-controls>
+        </div>
+    </div>
+
+
+
+
+  
     <!-- Modal Agregar Artista -->
     <div class="modal fade" id="createArtistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -22,15 +52,17 @@
                     <form #createArtistForm="ngForm" (ngSubmit)="createArtist(createArtistForm)">
                         <div class="form-group">
                             <label for="name">Nombre de Artista</label>
-                            <input class="form-control" type="text" name="name"
-                                placeholder="Nombre de Artista" required autocomplete="off"
-                                [(ngModel)]="artistService.selectArtist.name">
+                            <input class="form-control" type="text" name="name" placeholder="Nombre de Artista" required
+                                autocomplete="off" [(ngModel)]="artistService.selectArtist.name">
                         </div>
                         <div class="form-group">
-                            <label for="name">Descripción de Artista</label>
-                            <input class="form-control" type="text" name="description"
-                                placeholder="Nombre de Usuario" required autocomplete="off"
-                                [(ngModel)]="artistService.selectArtist.description">
+                            <label for="description">Descripción de Artista</label>
+                            <input class="form-control" type="text" name="description" placeholder="Nombre de Usuario"
+                                required autocomplete="off" [(ngModel)]="artistService.selectArtist.description">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Imagen del Artista</label>
+                            <input #artistImage class="form-control" type="file" name="image" required>
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Crear Artista</button>

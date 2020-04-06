@@ -11,7 +11,7 @@ ArtistController.createArtist = (req, res) => {
     new Artist({
         name: req.body.name,
         description: req.body.description,
-        image: 'null',
+        image: 'artist.png'
     }).save((err, artist) => {
         if (err) {
             console.log(err);

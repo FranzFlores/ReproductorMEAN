@@ -22,4 +22,9 @@ export class ArtistService {
     return this.http.post(`${this.URL_API}/createArtist`, artist);
   }
 
+  //Listado de Artista
+  getArtists(){
+    return this.http.get(`${this.URL_API}/artists`);
+  }
+
 }

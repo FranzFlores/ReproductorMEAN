@@ -6,7 +6,6 @@ import { UserService } from '../../_services/user.service';
 import { User } from 'src/app/_models/user';
 
 import { faTrashAlt, faEdit, faUndo, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-accounts',
