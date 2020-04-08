@@ -1,9 +1,31 @@
 <div class="container-fluid">
     <h2 class="text-center">Artistas</h2>
-    <button *ngIf="auth.userData.role == 'Administrador'" type="button" class="btn btn-primary" data-toggle="modal"
-        data-target="#createArtistModal">
-        <fa-icon [icon]="addIcon"></fa-icon> Agregar Artista
-    </button>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <button *ngIf="auth.userData.role == 'Administrador'" type="button" class="btn btn-primary"
+                    data-toggle="modal" data-target="#createArtistModal">
+                    <fa-icon [icon]="addIcon"></fa-icon> Agregar Artista
+                </button>
+            </div>
+            <div class="offset-md-6"></div>
+            <div class="col-md-3">
+                <form #allArtistForm="ngForm" (ngSubmit)="getArtistsByStatus(allArtistForm)">
+                    <div class="search">
+                        <div class="form-group">
+                            <select #date="ngModel" [(ngModel)]="artistService.selectArtist.status" 
+                                class="custom-select" name="status" (change)="getArtistsByStatus(allArtistForm)">
+                                <option value="0">Eliminados</option>
+                                <option value="1" selected>Activos</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <app-alert></app-alert>
 
@@ -21,9 +43,13 @@
                             data-target="#editArtistModal" class="btn btn-success mr-1" (click)="selectArtist(artist)">
                             <fa-icon [icon]="editIcon"></fa-icon> Editar
                         </button>
-                        <button *ngIf="auth.userData.role == 'Administrador'" data-toggle="modal"
+                        <button *ngIf="artistService.selectArtist.status==true AND auth.userData.role == 'Administrador'" data-toggle="modal"
                             data-target="#deleteArtistModal" class="btn btn-danger ml-1" (click)="selectArtist(artist)">
                             <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
+                        </button>
+                        <button *ngIf="artistService.selectArtist.status==false AND auth.userData.role == 'Administrador'" data-toggle="modal"
+                        data-target="#restoreArtistModal" class="btn btn-primary ml-1" (click)="selectArtist(artist)">
+                        <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar
                         </button>
                     </div>
                 </div>
@@ -56,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Descripción de Artista</label>
-                            <input class="form-control" type="text" name="description" placeholder="Nombre de Usuario"
+                            <input class="form-control" type="text" name="description" placeholder="Descripción de Artista"
                                 required autocomplete="off" [(ngModel)]="artistService.selectArtist.description">
                         </div>
                         <div class="form-group text-center">
@@ -138,5 +164,35 @@
             </div>
         </div>
     </div>
+
+        <!-- Modal restaurar un artista -->
+        <div class="modal fade" id="restoreArtistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Restaurar Artista</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <b>¿Está seguro de que desea restaurar el artista?</b><br>
+                    <p style="font-size: 14px;"> Si acepta automaticamente se restaurarán albums y canciones asociadas al
+                        artista</p>
+
+                    <form (ngSubmit)="restoreArtist()">
+                        <div class="modal-footer">
+                            <button #btn_restore_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>

@@ -40,9 +40,20 @@ export class ArtistService {
     return this.http.put(`${this.URL_API}/uploadImageArtist/${id}`, formData, { withCredentials: true });
   }
 
+  //Obtener artistas por estado
+  getArtistsByStatus(artist:Artist){
+    return this.http.post(`${this.URL_API}/allArtists`,artist);
+  }
+
   //ELiminar Artista
   deleteArtist(id){
     return this.http.put(`${this.URL_API}/deleteArtist/${id}`,id);
   }
+
+  //Restaurar Artista
+    restoreArtist(id){
+      return this.http.put(`${this.URL_API}/restoreArtist/${id}`,id);
+    }
+  
 
 }

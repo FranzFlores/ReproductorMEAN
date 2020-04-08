@@ -37,13 +37,23 @@ ArtistController.getArtists = (req, res) => {
     });
 };
 
+ArtistController.getAllArtists = (req, res) => {    
+    Artist.find({ status: req.body.status }).populate({ path: 'albums', model: 'Album', select: 'title' }).exec((err, artists) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Ocurrió un error al obtener artistas' });
+        } else {
+            res.status(200).send(artists);
+        }
+    });
+};
+
 ArtistController.updateArtist = (req, res) => {
- 
     var artistUpdated = {
         name: req.body.name,
         description: req.body.description
     }
-    
+
     Artist.findByIdAndUpdate(req.params.id, artistUpdated, (err, artist) => {
         if (err) {
             console.log(err);
@@ -94,9 +104,48 @@ ArtistController.deleteArtist = (req, res) => {
     });
 };
 
+ArtistController.restoreArtist = (req, res) => {
+    Artist.findByIdAndUpdate(req.params.id, { status: true }, (err, artist) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Ocurrió un error al restaurar artistas' });
+        } else {
+            if (!artist) {
+                res.status(404).send({ msg: "El artista no ha sido restaurado" });
+            } else {
+
+                Album.find({ artistId: artist._id }).update({ status: true }, (err, album) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send({ msg: 'Ocurrió un error al restaurar artista' });
+                    } else {
+                        if (!album) {
+                            res.status(404).send({ msg: "El artista no ha sido restaurado" });
+                        } else {
+
+                            Song.find({ albumId: album._id }).update({ status: true }, (err, song) => {
+                                if (err) {
+                                    console.log(err);
+                                    res.status(500).send({ msg: 'Ocurrió un error al restaurar artista' });
+                                } else {
+                                    if (!song) {
+                                        res.status(404).send({ msg: "El artista no ha sido restaurado" });
+                                    } else {
+                                        res.status(200).send({ msg: 'Se ha restaurado el artista con éxito' });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+};
+
 ArtistController.uploadImage = (req, res) => {
     var file_name = "Imagen no encontrada";
-    
+
     if (req.files) {
         var file_path = req.files.image.path;
         if (process.platform == 'darwin') {

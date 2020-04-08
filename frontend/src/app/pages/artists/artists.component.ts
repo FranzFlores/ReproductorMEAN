@@ -18,11 +18,13 @@ export class ArtistsComponent implements OnInit {
   @ViewChild('btn_create_close', { static: false }) btn_create_close: ElementRef<HTMLElement>;
   @ViewChild('btn_edit_close', { static: false }) btn_edit_close: ElementRef<HTMLElement>;
   @ViewChild('btn_delete_close', { static: false }) btn_delete_close: ElementRef<HTMLElement>;
+  @ViewChild('btn_restore_close', { static: false }) btn_restore_close: ElementRef<HTMLElement>;
 
 
   addIcon = faPlus;
   editIcon = faEdit;
   deleteIcon = faTrashAlt;
+  restoreIcon = faUndo;
   file: File;
 
   //Paginacion 
@@ -111,6 +113,24 @@ export class ArtistsComponent implements OnInit {
     });
   }
 
+  getArtistsByStatus(form:NgForm){
+    if (form.valid) {
+        this.artistService.getArtistsByStatus(form.value).subscribe(data=>{
+          this.artistService.artists = data as Artist[];
+        });
+    }
+  }
+
+  restoreArtist() {
+    this.artistService.restoreArtist(this.artistService.selectArtist._id).subscribe(data => {
+      this.alertService.success("Se ha restaurado el artista de manera correcta");
+      this.btn_restore_close.nativeElement.click();
+      this.artistsList();
+    }, error => {
+      console.log(error);
+      this.alertService.error("No se pudo restaurar el artista");
+    });
+  }
 
 
 }

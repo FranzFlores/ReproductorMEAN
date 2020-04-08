@@ -11,8 +11,10 @@ var md_upload = multipart({ uploadDir: './server/uploads/artists' });
 
 router.post('/createArtist',md_auth.ensureAuth,artistController.createArtist);
 router.get('/artists',md_auth.ensureAuth,artistController.getArtists);
+router.post('/allArtists',md_auth.ensureAuth,artistController.getAllArtists);
 router.put('/updateArtist/:id',md_auth.ensureAuth,artistController.updateArtist);
 router.put('/deleteArtist/:id',md_auth.ensureAuth,artistController.deleteArtist);
+router.put('/restoreArtist/:id',md_auth.ensureAuth,artistController.restoreArtist);
 router.put('/uploadImageArtist/:id',[md_auth.ensureAuth,md_upload],artistController.uploadImage);
 router.get('/getImageArtist/:imageFile',artistController.getImagenFile);
 

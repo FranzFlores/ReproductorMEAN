@@ -11,7 +11,7 @@ var artistSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Album"
     }],
-    status: { type: String, required: true, default: true }
+    status: { type: Boolean, required: true, default: true }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 module.exports = mongoose.model("Artist",artistSchema);
