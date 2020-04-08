@@ -38,11 +38,12 @@ ArtistController.getArtists = (req, res) => {
 };
 
 ArtistController.updateArtist = (req, res) => {
+ 
     var artistUpdated = {
         name: req.body.name,
-        description: req.body.description,
+        description: req.body.description
     }
-
+    
     Artist.findByIdAndUpdate(req.params.id, artistUpdated, (err, artist) => {
         if (err) {
             console.log(err);
@@ -95,10 +96,14 @@ ArtistController.deleteArtist = (req, res) => {
 
 ArtistController.uploadImage = (req, res) => {
     var file_name = "Imagen no encontrada";
-
+    
     if (req.files) {
         var file_path = req.files.image.path;
-        var file_split = file_path.split('\/');
+        if (process.platform == 'darwin') {
+            var file_split = file_path.split('\/');
+        } else {
+            var file_split = file_path.split('\\');
+        }
 
         var file_name = file_split[(file_split.length - 1)];
         var ext_split = file_name.split('\.');

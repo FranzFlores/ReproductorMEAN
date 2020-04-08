@@ -27,4 +27,17 @@ export class ArtistService {
     return this.http.get(`${this.URL_API}/artists`);
   }
 
+  //edicion de artista
+  updateArtist(artist:Artist,id){
+    return this.http.put(`${this.URL_API}/updateArtist/${id}`,artist);
+  }
+
+  //Actualizar imagen de artista
+  uploadArtistImage(id,file:File){
+    var formData: FormData = new FormData();
+    formData.append('id', id);
+    formData.append('image', file, file.name);
+    return this.http.put(`${this.URL_API}/uploadImageArtist/${id}`, formData, { withCredentials: true });
+  }
+
 }
