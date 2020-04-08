@@ -9,7 +9,8 @@
 
     <div class="container">
         <div class="row mt-3">
-            <div class="col-md-4" *ngFor="let artist of artistService.artists | paginate:{itemsPerPage:3, currentPage:pages} ">
+            <div class="col-md-4"
+                *ngFor="let artist of artistService.artists | paginate:{itemsPerPage:3, currentPage:pages} ">
                 <div class="card">
                     <img class="card-img-top" src="http://localhost:3000/api/artist/getImageArtist/{{artist.image}}"
                         alt="image artist" height="300px">
@@ -17,24 +18,24 @@
                         <h5 class="card-title">{{artist.name}}</h5>
                         <p class="card-text">{{artist.description}}</p>
                         <button *ngIf="auth.userData.role == 'Administrador'" data-toggle="modal"
-                        data-target="#editArtistModal" class="btn btn-success mr-1" (click)="selectArtist(artist)">
+                            data-target="#editArtistModal" class="btn btn-success mr-1" (click)="selectArtist(artist)">
                             <fa-icon [icon]="editIcon"></fa-icon> Editar
                         </button>
                         <button *ngIf="auth.userData.role == 'Administrador'" data-toggle="modal"
-                        data-target="#createArtistModal" class="btn btn-danger ml-1">
+                            data-target="#deleteArtistModal" class="btn btn-danger ml-1" (click)="selectArtist(artist)">
                             <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    
+
         <div class="text-center mt-3">
             <pagination-controls autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
                 (pageChange)="pages = $event"></pagination-controls>
         </div>
     </div>
-  
+
     <!-- Modal Agregar Artista -->
     <div class="modal fade" id="createArtistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -68,8 +69,8 @@
     </div>
 
 
-        <!-- Modal Editar Artista -->
-        <div class="modal fade" id="editArtistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Modal Editar Artista -->
+    <div class="modal fade" id="editArtistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -89,8 +90,9 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Descripción de Artista</label>
-                            <input class="form-control" type="text" name="description" placeholder="Descripción del Artista"
-                                required autocomplete="off" [(ngModel)]="artistService.selectArtist.description">
+                            <input class="form-control" type="text" name="description"
+                                placeholder="Descripción del Artista" required autocomplete="off"
+                                [(ngModel)]="artistService.selectArtist.description">
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Editar Artista</button>
@@ -99,9 +101,39 @@
                     <h4>Actualizar Imagen del Artista</h4>
                     <form #uploadImage="ngForm">
                         <input type="file" lang="es" #imageArtist accept="image/*">
-                        <button type="submit" class="btn btn-success mt-2" (click)="uploadArtist(imageArtist)">Actualizar
+                        <button type="submit" class="btn btn-success mt-2"
+                            (click)="uploadArtist(imageArtist)">Actualizar
                             Foto de Perfil</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dar de Baja un artista -->
+    <div class="modal fade" id="deleteArtistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Artista</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <b>¿Está seguro de que desea eliminar el artista?</b><br>
+                    <p style="font-size: 14px;"> Si acepta automaticamente se eliminarán albums y canciones asociadas al
+                        artista</p>
+
+                    <form (ngSubmit)="deleteArtist()">
+                        <div class="modal-footer">
+                            <button #btn_delete_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

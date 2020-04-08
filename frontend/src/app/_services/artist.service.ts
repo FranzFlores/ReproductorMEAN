@@ -40,4 +40,9 @@ export class ArtistService {
     return this.http.put(`${this.URL_API}/uploadImageArtist/${id}`, formData, { withCredentials: true });
   }
 
+  //ELiminar Artista
+  deleteArtist(id){
+    return this.http.put(`${this.URL_API}/deleteArtist/${id}`,id);
+  }
+
 }

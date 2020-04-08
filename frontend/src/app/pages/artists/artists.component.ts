@@ -17,6 +17,8 @@ export class ArtistsComponent implements OnInit {
 
   @ViewChild('btn_create_close', { static: false }) btn_create_close: ElementRef<HTMLElement>;
   @ViewChild('btn_edit_close', { static: false }) btn_edit_close: ElementRef<HTMLElement>;
+  @ViewChild('btn_delete_close', { static: false }) btn_delete_close: ElementRef<HTMLElement>;
+
 
   addIcon = faPlus;
   editIcon = faEdit;
@@ -72,7 +74,7 @@ export class ArtistsComponent implements OnInit {
 
   updateArtist(form: NgForm) {
     if (form.valid) {
-      this.artistService.updateArtist(form.value,this.artistService.selectArtist._id).subscribe(data => {
+      this.artistService.updateArtist(form.value, this.artistService.selectArtist._id).subscribe(data => {
         this.alertService.success("Se ha actualizado el artista correctamente");
         this.btn_edit_close.nativeElement.click();
         this.artistsList();
@@ -83,19 +85,30 @@ export class ArtistsComponent implements OnInit {
     }
   }
 
-  uploadArtist(input:any){
+  uploadArtist(input: any) {
     const file = input.files[0];
     if (file) {
       this.file = file;
-      this.artistService.uploadArtistImage(this.artistService.selectArtist._id,this.file).subscribe(data=>{
+      this.artistService.uploadArtistImage(this.artistService.selectArtist._id, this.file).subscribe(data => {
         this.alertService.success("Se ha subido la imagen del artista con éxito");
         this.btn_edit_close.nativeElement.click();
         this.artistsList();
-      },error=>{
+      }, error => {
         console.log(error);
         this.alertService.error("No se pudo subir la imagen del artista");
       })
     }
+  }
+
+  deleteArtist() {
+    this.artistService.deleteArtist(this.artistService.selectArtist._id).subscribe(data => {
+      this.alertService.success("Se ha eliminado el artista de manera correcta");
+      this.btn_delete_close.nativeElement.click();
+      this.artistsList();
+    }, error => {
+      console.log(error);
+      this.alertService.error("No se pudo eliminar el artista");
+    });
   }
 
 
