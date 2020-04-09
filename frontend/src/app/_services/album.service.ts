@@ -30,6 +30,14 @@ export class AlbumService {
   updateAlbum(id,album:Album){    
     return this.http.put(`${this.URL_API}/updateAlbum/${id}`,album);
   }
+
+  //Subir imagen de album
+  uploadImageAlbum(id,file:File){
+    var formData: FormData = new FormData();
+    formData.append('id', id);
+    formData.append('image', file, file.name);
+    return this.http.put(`${this.URL_API}/uploadImageAlbum/${id}`, formData, { withCredentials: true });
+  }
    
 
 }

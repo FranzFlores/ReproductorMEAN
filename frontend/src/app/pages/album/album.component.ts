@@ -28,8 +28,8 @@ export class AlbumComponent implements OnInit {
   restoreIcon = faUndo;
   file: File;
 
-    //Paginacion 
-    pages: number = 1;
+  //Paginacion 
+  pages: number = 1;
 
   constructor(
     public albumService: AlbumService,
@@ -40,7 +40,9 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     this.artistList();
-    this.albumsList();     
+    this.albumsList();
+   
+    
   }
 
   //Listado de artistas
@@ -66,11 +68,11 @@ export class AlbumComponent implements OnInit {
   }
 
   //Actualizar informacion del Album
-  updateAlbum(form: NgForm){
+  updateAlbum(form: NgForm) {
     console.log(this.albumService.selectAlbum);
-    
+
     if (form.valid) {
-      this.albumService.updateAlbum(this.albumService.selectAlbum._id,form.value).subscribe(data=>{
+      this.albumService.updateAlbum(this.albumService.selectAlbum._id, form.value).subscribe(data => {
         this.alertService.success("Se ha actualizado el álbum satisfactoriamente");
         this.btn_edit_close.nativeElement.click();
         this.albumService.selectAlbum = new Album();
@@ -83,20 +85,41 @@ export class AlbumComponent implements OnInit {
   }
 
   //listado de Albums
-  albumsList(){
-    this.albumService.getAlbums().subscribe(data=>{      
+  albumsList() {
+    this.albumService.getAlbums().subscribe(data => {
       this.albumService.albums = data as Album[];
+      console.log(this.albumService.albums);
     });
   }
 
   //Seleccionar Album
-  selectAlbum(album:Album){
+  selectAlbum(album: Album) {
     this.albumService.selectAlbum = album;
   }
 
   //Resetar la informacion del Album
-  resetAlbum(){
+  resetAlbum() {
     this.albumService.selectAlbum = new Album();
   }
+
+  //Actualizar la imagen del Album
+  uploadAlbum(input: any) {
+    const file = input.files[0];
+    if (file) {
+      this.file = file;
+      this.albumService.uploadImageAlbum(this.albumService.selectAlbum._id, file).subscribe(data => {
+        this.alertService.success("Se ha actualizado la imagen el álbum satisfactoriamente");
+        this.btn_edit_close.nativeElement.click();
+        this.albumService.selectAlbum = new Album();
+        this.albumsList();
+      }, error => {
+        console.log(error);
+        this.alertService.error("No se pudo actualizar la imagen del álbum");
+      })
+    }
+
+  }
+
+
 
 }

@@ -69,7 +69,6 @@ export class ArtistsComponent implements OnInit {
     const file = input.files[0];
     if (file) {
       this.file = file;
-      console.log(this.file);
     }
   }
 

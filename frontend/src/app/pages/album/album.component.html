@@ -138,6 +138,15 @@
                             <button type="submit" class="btn btn-primary">Actualizar Álbum</button>
                         </div>
                     </form>
+                    <hr>
+                    <div class="text-center mt-2 mb-2">
+                        <h4>Actualizar Imagen del Album</h4>
+                        <form #uploadImage="ngForm">
+                            <input type="file" lang="es" #imageAlbum accept="image/*">
+                            <button type="submit" class="btn btn-success mt-2"
+                                (click)="uploadAlbum(imageAlbum)">Subir foto de Álbum</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
