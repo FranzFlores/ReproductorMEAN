@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-3">
                 <button *ngIf="auth.userData.role == 'Administrador'" type="button" class="btn btn-primary"
-                    data-toggle="modal" data-target="#createAlbumModal">
+                    data-toggle="modal" data-target="#createAlbumModal" (click)="resetAlbum()">
                     <fa-icon [icon]="addIcon"></fa-icon> Agregar Álbum
                 </button>
             </div>
@@ -39,15 +39,15 @@
                         <h5 class="card-title">{{album.title}}</h5>
                         <p class="card-text">{{album.artistId.name}}</p>
                         <button *ngIf="auth.userData.role == 'Administrador'" data-toggle="modal"
-                            data-target="#editArtistModal" class="btn btn-success mr-1" (click)="selectAlbum(album)">
+                            data-target="#editAlbumModal" class="btn btn-success mr-1" (click)="selectAlbum(album)">
                             <fa-icon [icon]="editIcon"></fa-icon> Editar
                         </button>
                         <button *ngIf="albumService.selectAlbum.status==true AND auth.userData.role == 'Administrador'" data-toggle="modal"
-                            data-target="#deleteArtistModal" class="btn btn-danger ml-1" (click)="selectAlbum(album)">
+                            data-target="#deleteAlbumModal" class="btn btn-danger ml-1" (click)="selectAlbum(album)">
                             <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
                         </button>
                         <button *ngIf="albumService.selectAlbum.status==false AND auth.userData.role == 'Administrador'" data-toggle="modal"
-                        data-target="#restoreArtistModal" class="btn btn-primary ml-1" (click)="selectAlbum(album)">
+                        data-target="#restoreAlbumModal" class="btn btn-primary ml-1" (click)="selectAlbum(album)">
                         <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar
                         </button>
                     </div>
@@ -99,6 +99,43 @@
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary">Crear Álbum</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Editar Album -->
+        <div class="modal fade" id="editAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Álbum</h5>
+                    <button #btn_edit_close type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #updateAlbumForm="ngForm" (ngSubmit)="updateAlbum(updateAlbumForm)">
+                        <div class="form-group">
+                            <label for="title">Título del Álbum</label>
+                            <input class="form-control" name="title" type="text" placeholder="Título del Álbum" required
+                                autocomplete="off" [(ngModel)]="albumService.selectAlbum.title">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Año de Lanzamiento</label>
+                            <input class="form-control" name="year" type="text" placeholder="Año de Lanzamiento"
+                                required autocomplete="off" [(ngModel)]="albumService.selectAlbum.year">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Género del Álbum</label>
+                            <input class="form-control" name="gender" type="text" placeholder="Género del Álbum"
+                                required autocomplete="off" [(ngModel)]="albumService.selectAlbum.gender">
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Actualizar Álbum</button>
                         </div>
                     </form>
                 </div>

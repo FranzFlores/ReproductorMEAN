@@ -40,7 +40,7 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     this.artistList();
-    this.albumsList();        
+    this.albumsList();     
   }
 
   //Listado de artistas
@@ -57,9 +57,27 @@ export class AlbumComponent implements OnInit {
         this.alertService.success("Se ha creado el álbum satisfactoriamente");
         this.btn_create_close.nativeElement.click();
         this.albumService.selectAlbum = new Album();
+        this.albumsList();
       }, error => {
         console.log(error);
         this.alertService.error("No se pudo crear el álbum");
+      })
+    }
+  }
+
+  //Actualizar informacion del Album
+  updateAlbum(form: NgForm){
+    console.log(this.albumService.selectAlbum);
+    
+    if (form.valid) {
+      this.albumService.updateAlbum(this.albumService.selectAlbum._id,form.value).subscribe(data=>{
+        this.alertService.success("Se ha actualizado el álbum satisfactoriamente");
+        this.btn_edit_close.nativeElement.click();
+        this.albumService.selectAlbum = new Album();
+        this.albumsList();
+      }, error => {
+        console.log(error);
+        this.alertService.error("No se pudo actualizar el álbum");
       })
     }
   }
@@ -74,6 +92,11 @@ export class AlbumComponent implements OnInit {
   //Seleccionar Album
   selectAlbum(album:Album){
     this.albumService.selectAlbum = album;
+  }
+
+  //Resetar la informacion del Album
+  resetAlbum(){
+    this.albumService.selectAlbum = new Album();
   }
 
 }
