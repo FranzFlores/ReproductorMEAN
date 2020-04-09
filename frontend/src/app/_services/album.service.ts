@@ -38,6 +38,11 @@ export class AlbumService {
     formData.append('image', file, file.name);
     return this.http.put(`${this.URL_API}/uploadImageAlbum/${id}`, formData, { withCredentials: true });
   }
+
+  //eliminar album
+  deleteAlbum(id){
+    return this.http.put(`${this.URL_API}/deleteAlbum/${id}`,id);
+  }
    
 
 }

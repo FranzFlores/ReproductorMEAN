@@ -2,6 +2,7 @@
 
 var Album = require('../models/album.model');
 var Artist = require('../models/artist.model');
+var Song = require('../models/song.model');
 var path = require('path');
 var fs = require('fs');
 var AlbumController = {};

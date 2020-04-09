@@ -23,17 +23,17 @@ export class ArtistService {
   }
 
   //Listado de Artista
-  getArtists(){
+  getArtists() {
     return this.http.get(`${this.URL_API}/artists`);
   }
 
   //edicion de artista
-  updateArtist(artist:Artist,id){
-    return this.http.put(`${this.URL_API}/updateArtist/${id}`,artist);
+  updateArtist(artist: Artist, id) {
+    return this.http.put(`${this.URL_API}/updateArtist/${id}`, artist);
   }
 
   //Actualizar imagen de artista
-  uploadArtistImage(id,file:File){
+  uploadArtistImage(id, file: File) {
     var formData: FormData = new FormData();
     formData.append('id', id);
     formData.append('image', file, file.name);
@@ -41,19 +41,19 @@ export class ArtistService {
   }
 
   //Obtener artistas por estado
-  getArtistsByStatus(artist:Artist){
-    return this.http.post(`${this.URL_API}/allArtists`,artist);
+  getArtistsByStatus(artist: Artist) {
+    return this.http.post(`${this.URL_API}/allArtists`, artist);
   }
 
   //ELiminar Artista
-  deleteArtist(id){
-    return this.http.put(`${this.URL_API}/deleteArtist/${id}`,id);
+  deleteArtist(id) {
+    return this.http.put(`${this.URL_API}/deleteArtist/${id}`, id);
   }
 
   //Restaurar Artista
-    restoreArtist(id){
-      return this.http.put(`${this.URL_API}/restoreArtist/${id}`,id);
-    }
-  
+  restoreArtist(id) {
+    return this.http.put(`${this.URL_API}/restoreArtist/${id}`, id);
+  }
+
 
 }

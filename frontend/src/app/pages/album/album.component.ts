@@ -117,7 +117,17 @@ export class AlbumComponent implements OnInit {
         this.alertService.error("No se pudo actualizar la imagen del álbum");
       })
     }
+  }
 
+  deleteAlbum() {
+    this.albumService.deleteAlbum(this.albumService.selectAlbum._id).subscribe(data => {
+      this.alertService.success("Se ha eliminado el álbum de manera correcta");
+      this.btn_delete_close.nativeElement.click();
+      this.albumsList();
+    }, error => {
+      console.log(error);
+      this.alertService.error("No se pudo eliminar el álbum");
+    });
   }
 
 

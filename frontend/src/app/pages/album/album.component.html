@@ -42,13 +42,15 @@
                             data-target="#editAlbumModal" class="btn btn-success mr-1" (click)="selectAlbum(album)">
                             <fa-icon [icon]="editIcon"></fa-icon> Editar
                         </button>
-                        <button *ngIf="albumService.selectAlbum.status==true AND auth.userData.role == 'Administrador'" data-toggle="modal"
-                            data-target="#deleteAlbumModal" class="btn btn-danger ml-1" (click)="selectAlbum(album)">
+                        <button *ngIf="albumService.selectAlbum.status==true AND auth.userData.role == 'Administrador'"
+                            data-toggle="modal" data-target="#deleteAlbumModal" class="btn btn-danger ml-1"
+                            (click)="selectAlbum(album)">
                             <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
                         </button>
-                        <button *ngIf="albumService.selectAlbum.status==false AND auth.userData.role == 'Administrador'" data-toggle="modal"
-                        data-target="#restoreAlbumModal" class="btn btn-primary ml-1" (click)="selectAlbum(album)">
-                        <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar
+                        <button *ngIf="albumService.selectAlbum.status==false AND auth.userData.role == 'Administrador'"
+                            data-toggle="modal" data-target="#restoreAlbumModal" class="btn btn-primary ml-1"
+                            (click)="selectAlbum(album)">
+                            <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar
                         </button>
                     </div>
                 </div>
@@ -106,8 +108,8 @@
         </div>
     </div>
 
-        <!-- Modal Editar Album -->
-        <div class="modal fade" id="editAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Modal Editar Album -->
+    <div class="modal fade" id="editAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -143,10 +145,39 @@
                         <h4>Actualizar Imagen del Album</h4>
                         <form #uploadImage="ngForm">
                             <input type="file" lang="es" #imageAlbum accept="image/*">
-                            <button type="submit" class="btn btn-success mt-2"
-                                (click)="uploadAlbum(imageAlbum)">Subir foto de Álbum</button>
+                            <button type="submit" class="btn btn-success mt-2" (click)="uploadAlbum(imageAlbum)">Subir
+                                foto de Álbum</button>
                         </form>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dar de Baja un artista -->
+    <div class="modal fade" id="deleteAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Álbum</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <b>¿Está seguro de que desea eliminar el álbum?</b><br>
+                    <p style="font-size: 14px;"> Si acepta automaticamente se eliminarán canciones asociadas al
+                        álbum</p>
+
+                    <form (ngSubmit)="deleteAlbum()">
+                        <div class="modal-footer">
+                            <button #btn_delete_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
