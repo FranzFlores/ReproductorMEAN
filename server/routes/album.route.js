@@ -13,6 +13,6 @@ router.get('/albums',md_auth.ensureAuth,albumController.getAlbums);
 router.put('/updateAlbum/:id',md_auth.ensureAuth,albumController.updateAlbum);
 router.put('/deleteAlbum/:id',md_auth.ensureAuth,albumController.deleteAlbum);
 router.put('/uploadImageAlbum/:id',[md_auth.ensureAuth,md_upload],albumController.uploadImage);
-router.get('/getImageArtist/:imageFile',albumController.getImagenFile);
+router.get('/getImageAlbum/:imageFile',albumController.getImagenFile);
 
 module.exports = router;

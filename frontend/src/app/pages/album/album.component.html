@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <h2>Álbumes</h2>
-    
+
     <div class="container mb-2">
         <div class="row">
             <div class="col-md-3">
@@ -14,7 +14,7 @@
                 <form #allArtistForm="ngForm" (ngSubmit)="getArtistsByStatus(allArtistForm)">
                     <div class="search">
                         <div class="form-group">
-                            <select #date="ngModel" [(ngModel)]="artistService.selectArtist.status" 
+                            <select #date="ngModel" [(ngModel)]="artistService.selectAlbum.status" 
                                 class="custom-select" name="status" (change)="getArtistsByStatus(allArtistForm)">
                                 <option value="0">Eliminados</option>
                                 <option value="1" selected>Activos</option>
@@ -28,9 +28,41 @@
 
     <app-alert></app-alert>
 
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-4"
+                *ngFor="let album of albumService.albums | paginate:{itemsPerPage:3, currentPage:pages} ">
+                <div class="card">
+                    <img class="card-img-top" src="http://localhost:3000/api/album/getImageAlbum/{{album.image}}"
+                        alt="image artist" height="300px">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{album.title}}</h5>
+                        <p class="card-text">{{album.artistId.name}}</p>
+                        <button *ngIf="auth.userData.role == 'Administrador'" data-toggle="modal"
+                            data-target="#editArtistModal" class="btn btn-success mr-1" (click)="selectAlbum(album)">
+                            <fa-icon [icon]="editIcon"></fa-icon> Editar
+                        </button>
+                        <button *ngIf="albumService.selectAlbum.status==true AND auth.userData.role == 'Administrador'" data-toggle="modal"
+                            data-target="#deleteArtistModal" class="btn btn-danger ml-1" (click)="selectAlbum(album)">
+                            <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
+                        </button>
+                        <button *ngIf="albumService.selectAlbum.status==false AND auth.userData.role == 'Administrador'" data-toggle="modal"
+                        data-target="#restoreArtistModal" class="btn btn-primary ml-1" (click)="selectAlbum(album)">
+                        <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- Modal Agregar Album -->
-        <div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="text-center mt-3">
+            <pagination-controls autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
+                (pageChange)="pages = $event"></pagination-controls>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Album -->
+    <div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -59,9 +91,10 @@
                         </div>
                         <div class="form-group">
                             <label for="artist">Autor del Álbum</label>
-                            <select #date="ngModel" [(ngModel)]="albumService.selectAlbum.artistId" 
+                            <select #date="ngModel" [(ngModel)]="albumService.selectAlbum.artistId"
                                 class="custom-select" name="artist" required>
-                                <option *ngFor="let artist of artistService.artists" value="{{artist._id}}">{{artist.name}}</option>
+                                <option *ngFor="let artist of artistService.artists" value="{{artist._id}}">
+                                    {{artist.name}}</option>
                             </select>
                         </div>
                         <div class="form-group text-center">
@@ -72,4 +105,6 @@
             </div>
         </div>
     </div>
+
+
 </div>

@@ -28,6 +28,9 @@ export class AlbumComponent implements OnInit {
   restoreIcon = faUndo;
   file: File;
 
+    //Paginacion 
+    pages: number = 1;
+
   constructor(
     public albumService: AlbumService,
     public artistService: ArtistService,
@@ -37,6 +40,7 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     this.artistList();
+    this.albumsList();        
   }
 
   //Listado de artistas
@@ -46,6 +50,7 @@ export class AlbumComponent implements OnInit {
     });
   }
 
+  //Creacion de Album
   createAlbum(form: NgForm) {
     if (form.valid) {
       this.albumService.createAlbum(form.value).subscribe(data => {
@@ -57,6 +62,18 @@ export class AlbumComponent implements OnInit {
         this.alertService.error("No se pudo crear el álbum");
       })
     }
+  }
+
+  //listado de Albums
+  albumsList(){
+    this.albumService.getAlbums().subscribe(data=>{      
+      this.albumService.albums = data as Album[];
+    });
+  }
+
+  //Seleccionar Album
+  selectAlbum(album:Album){
+    this.albumService.selectAlbum = album;
   }
 
 }

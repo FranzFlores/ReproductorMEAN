@@ -21,5 +21,10 @@ export class AlbumService {
      return this.http.post(`${this.URL_API}/createAlbum`,album);
    }
 
+   //Listar Albums
+   getAlbums(){
+     return this.http.get(`${this.URL_API}/albums`);
+   }
+
 }
  
