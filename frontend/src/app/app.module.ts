@@ -20,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ArtistsComponent } from './pages/artists/artists.component';
+import { AlbumComponent } from './pages/album/album.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ArtistsComponent } from './pages/artists/artists.component';
     DashboardComponent,
     AccountsComponent,
     SettingsComponent,
-    ArtistsComponent
+    ArtistsComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule,

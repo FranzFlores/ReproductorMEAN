@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <h2>Álbumes</h2>
+    
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col-md-3">
+                <button *ngIf="auth.userData.role == 'Administrador'" type="button" class="btn btn-primary"
+                    data-toggle="modal" data-target="#createAlbumModal">
+                    <fa-icon [icon]="addIcon"></fa-icon> Agregar Álbum
+                </button>
+            </div>
+            <div class="offset-md-6"></div>
+            <!-- <div class="col-md-3">
+                <form #allArtistForm="ngForm" (ngSubmit)="getArtistsByStatus(allArtistForm)">
+                    <div class="search">
+                        <div class="form-group">
+                            <select #date="ngModel" [(ngModel)]="artistService.selectArtist.status" 
+                                class="custom-select" name="status" (change)="getArtistsByStatus(allArtistForm)">
+                                <option value="0">Eliminados</option>
+                                <option value="1" selected>Activos</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div> -->
+        </div>
+    </div>
+
+    <app-alert></app-alert>
+
+
+        <!-- Modal Agregar Album -->
+        <div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Álbum</h5>
+                    <button #btn_create_close type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #createAlbumForm="ngForm" (ngSubmit)="createAlbum(createAlbumForm)">
+                        <div class="form-group">
+                            <label for="title">Título del Álbum</label>
+                            <input class="form-control" name="title" type="text" placeholder="Título del Álbum" required
+                                autocomplete="off" [(ngModel)]="albumService.selectAlbum.title">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Año de Lanzamiento</label>
+                            <input class="form-control" name="year" type="text" placeholder="Año de Lanzamiento"
+                                required autocomplete="off" [(ngModel)]="albumService.selectAlbum.year">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Género del Álbum</label>
+                            <input class="form-control" name="gender" type="text" placeholder="Género del Álbum"
+                                required autocomplete="off" [(ngModel)]="albumService.selectAlbum.gender">
+                        </div>
+                        <div class="form-group">
+                            <label for="artist">Autor del Álbum</label>
+                            <select #date="ngModel" [(ngModel)]="albumService.selectAlbum.artistId" 
+                                class="custom-select" name="artist" required>
+                                <option *ngFor="let artist of artistService.artists" value="{{artist._id}}">{{artist.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Crear Álbum</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

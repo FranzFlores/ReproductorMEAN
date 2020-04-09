@@ -6,8 +6,10 @@ var path = require('path');
 var fs = require('fs');
 var AlbumController = {};
 
-AlbumController.createAlbum = (req, res) => {
+AlbumController.createAlbum = (req, res) => {     
     //Revisar si el album ya ha sido agregado 
+    console.log(req.body);
+    
     Album.find({ title: req.body.title, artistId: req.body.artist }, (err, results) => {
         if (err) {
             console.log(err);
@@ -18,7 +20,7 @@ AlbumController.createAlbum = (req, res) => {
                 new Album({
                     title: req.body.title,
                     year: req.body.year,
-                    image: 'null',
+                    image: 'album.jpg',
                     gender: req.body.gender,
                     artistId: req.body.artist
                 }).save((err, albumCreate) => {
