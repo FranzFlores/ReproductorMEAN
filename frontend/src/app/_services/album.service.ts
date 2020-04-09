@@ -44,6 +44,16 @@ export class AlbumService {
     return this.http.put(`${this.URL_API}/deleteAlbum/${id}`,id);
   }
    
+  //Obtener los album por estado
+  getAlbumsByStatus(album:Album){    
+    return this.http.post(`${this.URL_API}/albumsByStatus`,album);
+  }
+
+  //Restaurar el album
+  restoreAlbum(id){
+    return this.http.put(`${this.URL_API}/restoreAlbum/${id}`,id);
+  }
+  
 
 }
  

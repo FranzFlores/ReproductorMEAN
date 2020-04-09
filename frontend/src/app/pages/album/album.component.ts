@@ -41,8 +41,6 @@ export class AlbumComponent implements OnInit {
   ngOnInit(): void {
     this.artistList();
     this.albumsList();
-   
-    
   }
 
   //Listado de artistas
@@ -130,6 +128,24 @@ export class AlbumComponent implements OnInit {
     });
   }
 
+  getAlbumsByStatus(form: NgForm) {
+    if (form.valid) {
+      this.albumService.getAlbumsByStatus(form.value).subscribe(data => {
+        this.albumService.albums = data as Album[];
+      })
+    }
+  }
+
+  restoreAlbum() {
+    this.albumService.restoreAlbum(this.albumService.selectAlbum._id).subscribe(data => {
+      this.alertService.success("Se ha restaurado el álbum de manera correcta");
+      this.btn_restore_close.nativeElement.click();
+      this.albumsList();
+    }, error => {
+      console.log(error);
+      this.alertService.error("No se pudo restaurar el álbum");
+    });
+  }
 
 
 }

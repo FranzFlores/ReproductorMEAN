@@ -65,6 +65,15 @@ AlbumController.getAlbums = (req, res) => {
     });
 };
 
+AlbumController.getAlbumsByStatus = (req, res) => {
+    console.log(req.body);
+    
+    Album.find({ status: req.body.status }).populate({ path: 'artistId', model: 'Artist', select: 'name' }).exec((err, albums) => {
+        if (err) res.status(500).send("Error");
+        else res.status(200).send(albums);
+    });
+};
+
 AlbumController.updateAlbum = (req, res) => {
     var albumUpdated = {
         title: req.body.title,
@@ -102,6 +111,29 @@ AlbumController.deleteAlbum = (req, res) => {
         }
     });
 };
+
+AlbumController.restoreAlbum = (req, res) => {
+    Album.findByIdAndUpdate(req.params.id, { status: true }, (err, album) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Ocurrió un error al restaurar album' });
+        } else {
+            Song.find({ albumId: album._id }).update({ status: true }, (err, song) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send({ msg: 'Ocurrió un error al restaurar el album' });
+                } else {
+                    if (!song) {
+                        res.status(404).send({ msg: "El album no ha sido restaurado" });
+                    } else {
+                        res.status(200).send({ msg: 'Se ha restaurado el album con éxito' });
+                    }
+                }
+            });
+        }
+    });
+};
+
 
 AlbumController.uploadImage = (req, res) => {
     var file_name = "Imagen no encontrada";
