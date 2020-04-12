@@ -67,8 +67,6 @@ export class AlbumComponent implements OnInit {
 
   //Actualizar informacion del Album
   updateAlbum(form: NgForm) {
-    console.log(this.albumService.selectAlbum);
-
     if (form.valid) {
       this.albumService.updateAlbum(this.albumService.selectAlbum._id, form.value).subscribe(data => {
         this.alertService.success("Se ha actualizado el álbum satisfactoriamente");

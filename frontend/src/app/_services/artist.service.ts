@@ -45,6 +45,11 @@ export class ArtistService {
     return this.http.post(`${this.URL_API}/allArtists`, artist);
   }
 
+  //Obtener artista por id
+  getArtist(id){
+    return this.http.get(`${this.URL_API}/${id}`);
+  }
+
   //ELiminar Artista
   deleteArtist(id) {
     return this.http.put(`${this.URL_API}/deleteArtist/${id}`, id);

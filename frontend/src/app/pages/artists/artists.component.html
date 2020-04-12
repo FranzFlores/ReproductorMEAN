@@ -37,7 +37,9 @@
                     <img class="card-img-top" src="http://localhost:3000/api/artist/getImageArtist/{{artist.image}}"
                         alt="image artist" height="300px">
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{artist.name}}</h5>
+                        <a routerLink="../../dashboard/artist-details/{{artist._id}}">
+                            <h5 class="card-title">{{artist.name}}</h5>
+                        </a>
                         <p class="card-text">{{artist.description}}</p>
                         <button *ngIf="auth.userData.role == 'Administrador'" data-toggle="modal"
                             data-target="#editArtistModal" class="btn btn-success mr-1" (click)="selectArtist(artist)">

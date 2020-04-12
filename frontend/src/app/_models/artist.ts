@@ -1,10 +1,13 @@
+import { Album } from './album';
+
 export class Artist {
     constructor(
         _id = '',
         name = '',
         description = '',
         image = '',
-        status = true
+        status = true,
+      
     ){
         this._id = _id;
         this.name = name;
@@ -18,4 +21,5 @@ export class Artist {
     description:string;
     image: string;
     status:boolean;
+    albums:Album[];
 }

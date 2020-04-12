@@ -21,6 +21,7 @@ import { AccountsComponent } from './pages/accounts/accounts.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ArtistsComponent } from './pages/artists/artists.component';
 import { AlbumComponent } from './pages/album/album.component';
+import { ArtistDetailsComponent } from './pages/artist-details/artist-details.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AlbumComponent } from './pages/album/album.component';
     AccountsComponent,
     SettingsComponent,
     ArtistsComponent,
-    AlbumComponent
+    AlbumComponent,
+    ArtistDetailsComponent
   ],
   imports: [
     BrowserModule,

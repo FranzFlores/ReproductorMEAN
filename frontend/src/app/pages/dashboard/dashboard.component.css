@@ -3,14 +3,14 @@
 }
 
 #left-bar{
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
     width: 25%;
+    height: 100%;
     color: white;
     background-color: #1c1c1f;
-    height: 100%;
     padding: 70px 30px 70px 85px;
 }
 
@@ -60,6 +60,7 @@ h2{
     height: 100%;
     margin-left: 340px;
     padding: 30px 40px;
+    overflow: scroll;
     overflow-y: auto;
 }
 

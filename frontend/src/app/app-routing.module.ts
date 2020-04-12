@@ -10,6 +10,7 @@ import { SettingsComponent } from "./pages/settings/settings.component";
 import { AuthGuard } from "./_guards/auth.guard";
 import { ArtistsComponent } from './pages/artists/artists.component';
 import { AlbumComponent } from './pages/album/album.component';
+import { ArtistDetailsComponent } from './pages/artist-details/artist-details.component';
 
 const routes: Routes = [
   { path: '', component: SignupComponent },
@@ -21,8 +22,9 @@ const routes: Routes = [
     children: [
       { path: 'account', component: AccountsComponent, canActivate: [AuthGuard] },
       { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-      { path: 'artist', component: ArtistsComponent, canActivate: [AuthGuard]},
-      { path: 'album', component: AlbumComponent, canActivate: [AuthGuard]}
+      { path: 'artist', component: ArtistsComponent, canActivate: [AuthGuard] },
+      { path: 'artist-details/:id', component: ArtistDetailsComponent, canActivate: [AuthGuard] },
+      { path: 'album', component: AlbumComponent, canActivate: [AuthGuard] }
     ]
   }
 ];
