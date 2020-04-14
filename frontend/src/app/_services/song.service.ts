@@ -10,6 +10,8 @@ export class SongService {
 
   selectSong: Song;
   songs: Song[];
+  
+  file:File;
 
   private readonly URL_API = 'http://localhost:3000/api/song';
 
@@ -31,5 +33,14 @@ export class SongService {
   updateSong(id,song:Song){
     return this.htpp.put(`${this.URL_API}/updateSong/${id}`,song);
   }
+
+  //Subir archivo de audio de la cancion
+  uploadFile(id,file:File){
+    var formData = new FormData();
+    formData.append('id',id);
+    formData.append('file',file,file.name);
+    return this.htpp.put(`${this.URL_API}/uploadSongFile/${id}`,formData);
+  }
+
 
 }

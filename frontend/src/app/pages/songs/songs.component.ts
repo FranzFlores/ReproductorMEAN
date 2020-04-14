@@ -89,6 +89,21 @@ export class SongsComponent implements OnInit {
     }
   }
 
+  uploadFile(input:any){
+    const file = input.files[0];
+   
+    if(file){
+      this.file = file;
+      this.songService.uploadFile(this.songService.selectSong._id,this.file).subscribe(data=>{
+        this.alertService.success("Se ha subido el archivo de la canción correctamente");
+        this.btn_edit_close.nativeElement.click();
+        this.songList();
+      },error=>{
+        console.log(error);
+        this.alertService.error("No se pudo subir el archivo de la canción");
+      });
+    }
+  }
 
   resetSong(){
     this.songService.selectSong = new Song();
