@@ -22,6 +22,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ArtistsComponent } from './pages/artists/artists.component';
 import { AlbumComponent } from './pages/album/album.component';
 import { ArtistDetailsComponent } from './pages/artist-details/artist-details.component';
+import { SongsComponent } from './pages/songs/songs.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ArtistDetailsComponent } from './pages/artist-details/artist-details.co
     SettingsComponent,
     ArtistsComponent,
     AlbumComponent,
-    ArtistDetailsComponent
+    ArtistDetailsComponent,
+    SongsComponent
   ],
   imports: [
     BrowserModule,

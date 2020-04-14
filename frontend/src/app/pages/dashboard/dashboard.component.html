@@ -11,7 +11,7 @@
             <ul class="list-unstyled">
                 <li><a routerLink="./artist" [routerLinkActive]="['active']"><fa-icon [icon]="artistIcon"></fa-icon>  Artistas</a></li>
                 <li><a routerLink="./album" [routerLinkActive]="['active']"><fa-icon [icon]="albumIcon"></fa-icon>  Álbumes</a></li>
-                <li><a routerLink="./" [routerLinkActive]="['active']"><fa-icon [icon]="songIcon"></fa-icon>  Canciones</a></li>
+                <li><a routerLink="./song" [routerLinkActive]="['active']"><fa-icon [icon]="songIcon"></fa-icon>  Canciones</a></li>
                 <li><a routerLink="./" [routerLinkActive]="['active']"><fa-icon [icon]="playlistIcon"></fa-icon>  Playlist</a></li>
                 <li><a routerLink="./settings" [routerLinkActive]="['active']"><fa-icon [icon]="configurationIcon"></fa-icon>  Configuración</a></li>
                 <li><a *ngIf="auth.userData.role == 'Administrador'" routerLink="./account" [routerLinkActive]="['active']"><fa-icon [icon]="accountIcon"></fa-icon> Gestión de Cuentas</a></li>

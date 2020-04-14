@@ -9,7 +9,7 @@ SongController.createSong = (req, res) => {
         number: req.body.number,
         file: 'null',
         reproductions: 0,
-        albumId: req.body.album
+        albumId: req.body.albumId
     }).save((err, song) => {
         if (err) {
             console.log(err);

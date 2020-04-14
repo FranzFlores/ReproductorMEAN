@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <h2 class="text-center">Canciones</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <button *ngIf="auth.userData.role == 'Administrador'" type="button" class="btn btn-primary"
+                    data-toggle="modal" data-target="#createSongModal">
+                    <fa-icon [icon]="addIcon"></fa-icon> Agregar Canción
+                </button>
+            </div>
+            <div class="offset-md-6"></div>
+            <!-- <div class="col-md-3">
+                <form #allArtistForm="ngForm" (ngSubmit)="getArtistsByStatus(allArtistForm)">
+                    <div class="search">
+                        <div class="form-group">
+                            <select #date="ngModel" [(ngModel)]="songService.selectSong.status" 
+                                class="custom-select" name="status" (change)="getArtistsByStatus(allArtistForm)">
+                                <option value="0">Eliminados</option>
+                                <option value="1" selected>Activos</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div> -->
+        </div>
+    </div>
+
+    <app-alert></app-alert>
+
+    <!-- tabla de canciones  -->
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Título</th>
+                <th>Número</th>
+                <th>Álbum</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let song of songService.songs | paginate:{itemsPerPage:25, currentPage:pages} ">
+                <td>{{song.title}}</td>
+                <td>{{song.number}}</td>
+                <td>{{song.albumId.title}}</td>
+                <td>
+                    <button class="btn btn-success"><fa-icon [icon]="editIcon"></fa-icon></button>
+                    <button class="btn btn-danger"><fa-icon [icon]="deleteIcon"></fa-icon> </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <!-- Modal Agregar Artista -->
+    <div class="modal fade" id="createSongModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Canción</h5>
+                    <button #btn_create_close type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #createSongForm="ngForm" (ngSubmit)="createSong(createSongForm)">
+                        <div class="form-group">
+                            <label for="title">Título de la Canción</label>
+                            <input class="form-control" type="text" name="title" placeholder="Título de la Canción" required
+                                autocomplete="off" [(ngModel)]="songService.selectSong.title">
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Número de Canción</label>
+                            <input class="form-control" type="number" name="number"
+                                placeholder="Número de Canción" required autocomplete="off"
+                                [(ngModel)]="songService.selectSong.number">
+                        </div>
+                        <div class="form-group">
+                            <label for="albumId">Álbum de la cancion Canción</label>
+                            <select class="form-control" name="albumId" [(ngModel)]="songService.selectSong.albumId">
+                                <option value="{{album._id}}" *ngFor="let album of albumService.albums">
+                                    {{album.title}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Crear Canción</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
