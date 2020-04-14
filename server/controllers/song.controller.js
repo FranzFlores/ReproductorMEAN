@@ -38,6 +38,21 @@ SongController.getSongs = (req, res) => {
     });
 };
 
+SongController.getSonsByStatus = (req, res) => {
+    Song.find({ status: req.body.status }).populate({
+        path: 'albumId', model: 'Album', select: 'title',
+        populate: { path: 'artistId', model: 'Artist', select: 'name' }
+    }).exec((err, songs) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Ocurrió un error al obtener las canciones' });
+        } else {
+            res.status(200).send(songs);
+        }
+    });
+};
+
+
 SongController.updateSong = (req, res) => {
     var songUpdated = {
         title: req.body.title,
@@ -62,6 +77,17 @@ SongController.deleteSong = (req, res) => {
             res.status(500).send({ msg: 'Ocurrió un error al eliminar la canción' });
         } else {
             res.status(200).send({ msg: 'Se ha eliminado la canción con éxito' });
+        }
+    });
+};
+
+SongController.restoreSong = (req, res) => {
+    Song.findByIdAndUpdate(req.params.id, { status: true }, (err, song) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Ocurrió un error al restaurar la canción' });
+        } else {
+            res.status(200).send({ msg: 'Se ha restaurado la canción con éxito' });
         }
     });
 };

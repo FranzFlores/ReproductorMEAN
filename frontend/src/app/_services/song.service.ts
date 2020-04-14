@@ -43,8 +43,15 @@ export class SongService {
   }
 
   deleteSong(id){
-    return this.htpp.put(`${this.URL_API}/deletesong/${id}`,id);
+    return this.htpp.put(`${this.URL_API}/deleteSong/${id}`,id);
   }
 
+  getSongsByStatus(song:Song){
+    return this.htpp.post(`${this.URL_API}/songsByStatus`,song);
+  }
+
+  restoreSong(id){
+    return this.htpp.put(`${this.URL_API}/restoreSong/${id}`,id);
+  }
 
 }

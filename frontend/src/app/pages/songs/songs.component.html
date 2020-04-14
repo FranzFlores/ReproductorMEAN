@@ -10,19 +10,19 @@
                 </button>
             </div>
             <div class="offset-md-6"></div>
-            <!-- <div class="col-md-3">
-                <form #allArtistForm="ngForm" (ngSubmit)="getArtistsByStatus(allArtistForm)">
+            <div class="col-md-3">
+                <form #allSongForm="ngForm" (ngSubmit)="getSongsByStatus(allSongForm)">
                     <div class="search">
                         <div class="form-group">
-                            <select #date="ngModel" [(ngModel)]="songService.selectSong.status" 
-                                class="custom-select" name="status" (change)="getArtistsByStatus(allArtistForm)">
+                            <select #date="ngModel" [(ngModel)]="songService.selectSong.status" class="custom-select"
+                                name="status" (change)="getSongsByStatus(allSongForm)">
                                 <option value="0">Eliminados</option>
                                 <option value="1" selected>Activos</option>
                             </select>
                         </div>
                     </div>
                 </form>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -49,9 +49,15 @@
                         (click)="selectSong(song)">
                         <fa-icon [icon]="editIcon"></fa-icon>
                     </button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSongModal"
+                    <button *ngIf="songService.selectSong.status==true AND auth.userData.role == 'Administrador'"
+                        class="btn btn-danger" data-toggle="modal" data-target="#deleteSongModal"
                         (click)="selectSong(song)">
                         <fa-icon [icon]="deleteIcon"></fa-icon>
+                    </button>
+                    <button *ngIf="songService.selectSong.status==false AND auth.userData.role == 'Administrador'"
+                        class="btn btn-info" data-toggle="modal" data-target="#restoreSongModal"
+                        (click)="selectSong(song)">
+                        <fa-icon [icon]="restoreIcon"></fa-icon>
                     </button>
                 </td>
             </tr>
@@ -142,7 +148,7 @@
         </div>
     </div>
 
-
+    <!-- Modal de Eliminar Cancion -->
     <div class="modal fade" id="deleteSongModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -163,6 +169,31 @@
                         </div>
                     </form>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para restaurar cancion  -->
+    <div class="modal fade" id="restoreSongModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Restaurar Canción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <b>¿Está seguro de que desea restaurar la cancion?</b>
+                    <form (ngSubmit)="restoreSong()">
+                        <div class="modal-footer">
+                            <button #btn_restore_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
