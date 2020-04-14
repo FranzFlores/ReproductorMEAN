@@ -42,5 +42,9 @@ export class SongService {
     return this.htpp.put(`${this.URL_API}/uploadSongFile/${id}`,formData);
   }
 
+  deleteSong(id){
+    return this.htpp.put(`${this.URL_API}/deletesong/${id}`,id);
+  }
+
 
 }

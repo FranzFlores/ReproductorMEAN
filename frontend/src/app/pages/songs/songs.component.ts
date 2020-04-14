@@ -109,4 +109,15 @@ export class SongsComponent implements OnInit {
     this.songService.selectSong = new Song();
   }
 
+  deleteSong(){
+    this.songService.deleteSong(this.songService.selectSong._id).subscribe(data=>{
+    this.alertService.success("Se ha eliminado la canción correctamente");
+        this.btn_delete_close.nativeElement.click();
+        this.songList();
+      },error=>{
+        console.log(error);
+        this.alertService.error("No se pudo eliminar la canción");
+      });
+  }
+
 }
