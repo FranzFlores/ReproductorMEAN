@@ -72,6 +72,24 @@ export class SongsComponent implements OnInit {
     });
   }
 
+  selectSong(song:Song){
+    this.songService.selectSong = song;
+  }
+
+  editSong(form:NgForm){
+    if (form.valid) {
+      this.songService.updateSong(this.songService.selectSong._id,form.value).subscribe(data=>{
+        this.alertService.success("Se ha actualizado correctamente la canción");
+        this.btn_edit_close.nativeElement.click();
+        this.songList();
+      },error=>{
+        console.log(error);
+        this.alertService.error("No se pudo actualizar la canción");
+      });
+    }
+  }
+
+
   resetSong(){
     this.songService.selectSong = new Song();
   }

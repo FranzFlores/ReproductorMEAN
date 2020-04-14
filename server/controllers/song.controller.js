@@ -42,7 +42,6 @@ SongController.updateSong = (req, res) => {
     var songUpdated = {
         title: req.body.title,
         year: req.body.year,
-        gender: req.body.gender,
     }
 
     Song.findByIdAndUpdate(req.params.id, songUpdated, (err, song) => {

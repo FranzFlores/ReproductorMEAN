@@ -27,5 +27,9 @@ export class SongService {
     return this.htpp.get(`${this.URL_API}/songs`);
   }
 
+  //Editar informacion de la cancion
+  updateSong(id,song:Song){
+    return this.htpp.put(`${this.URL_API}/updateSong/${id}`,song);
+  }
 
 }
