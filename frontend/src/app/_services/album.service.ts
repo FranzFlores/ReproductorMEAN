@@ -26,6 +26,10 @@ export class AlbumService {
      return this.http.get(`${this.URL_API}/albums`);
    }
 
+   getAlbum(id){
+     return this.http.get(`${this.URL_API}/getAlbum/${id}`);
+   }
+
    //Actualizar datos de Album
   updateAlbum(id,album:Album){    
     return this.http.put(`${this.URL_API}/updateAlbum/${id}`,album);

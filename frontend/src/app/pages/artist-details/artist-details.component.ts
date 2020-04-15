@@ -10,8 +10,8 @@ import { Artist } from 'src/app/_models/artist';
 })
 export class ArtistDetailsComponent implements OnInit {
 
-  pages: number = 1;
-
+  pages: number = 1; 
+  
   constructor(
     public artistService:ArtistService,
     private activedRoute: ActivatedRoute

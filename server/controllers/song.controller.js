@@ -1,27 +1,55 @@
 'use strict'
 
 var Song = require('../models/song.model');
+var Album = require('../models/album.model');
 var SongController = {};
 
 SongController.createSong = (req, res) => {
-    new Song({
-        title: req.body.title,
-        number: req.body.number,
-        file: 'null',
-        reproductions: 0,
-        albumId: req.body.albumId
-    }).save((err, song) => {
+    //Revisar si la cancion ya ha sido agregada
+    Song.find({ title: req.body.title, albumId: req.body.albumId }, (err, results) => {
         if (err) {
             console.log(err);
-            res.status(500).send({ msg: 'Ocurrió un error al crear la canción' });
+            res.status(500).send({ msg: 'Ocurrió un error al crear la cancion' });
         } else {
-            if (!song) {
-                res.status(404).send({ msg: 'No se pudo crear la canción' });
-            } else {
-                res.status(200).send({ msg: 'Se agrego la canción con éxito' });
+            if (results.length > 0) res.status(200).send({ msg: 'El álbum ya está registrado' });
+            else {
+                new Song({
+                    title: req.body.title,
+                    number: req.body.number,
+                    file: 'null',
+                    reproductions: 0,
+                    albumId: req.body.albumId
+                }).save((err, songCreated) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send({ msg: 'Ocurrió un error al crear la canción' });
+                    } else {
+                        if (!songCreated) res.status(404).send({ msg: 'No se pudo crear la canción' });
+                        else {
+                            Album.findById(req.body.albumId, (err, album) => {
+                                if (err) {
+                                    console.log(err);
+                                    res.status(500).send({ msg: 'Ocurrió un error al crear la cancion' });
+                                } else {
+                                    album.songs.push(songCreated._id);
+                                    var songs = album.songs;
+                                    Album.findByIdAndUpdate(req.body.albumId, { songs: songs }, (err, album) => {
+                                        if (err) {
+                                            console.log(err);
+                                            res.status(500).send({ msg: 'Ocurrió un error al crear  la cancion' });
+                                        } else {
+                                            res.status(200).send({ msg: 'Se agrego la cancion con éxito' });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
             }
         }
     });
+
 };
 
 SongController.getSongs = (req, res) => {
@@ -32,6 +60,21 @@ SongController.getSongs = (req, res) => {
         if (err) {
             console.log(err);
             res.status(500).send({ msg: 'Ocurrió un error al obtener las canciones' });
+        } else {
+            res.status(200).send(songs);
+        }
+    });
+};
+
+
+SongController.getSong = (req, res) => {
+    Song.find({ status: true }).populate({
+        path: 'albumId', model: 'Album', select: 'title',
+        populate: { path: 'artistId', model: 'Artist', select: 'name' }
+    }).exec((err, songs) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ msg: 'Ocurrió un error al obtener la cancion' });
         } else {
             res.status(200).send(songs);
         }

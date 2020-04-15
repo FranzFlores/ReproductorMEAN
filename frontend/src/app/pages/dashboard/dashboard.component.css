@@ -68,3 +68,16 @@ h2{
     border-bottom: 4px solid #84BD00;
     padding-bottom: 4px;
 }
+
+
+/* Reproductor */
+.player{
+    background-color: #1C1C1F;
+    position: fixed;
+    width: 75%;
+    left: 26%;
+    bottom: 0px;
+    padding: 20px;
+    margin-left: -15px;
+    border-left: 1px solid #444;
+}

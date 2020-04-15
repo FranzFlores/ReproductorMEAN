@@ -12,6 +12,7 @@ import { ArtistsComponent } from './pages/artists/artists.component';
 import { AlbumComponent } from './pages/album/album.component';
 import { ArtistDetailsComponent } from './pages/artist-details/artist-details.component';
 import { SongsComponent } from './pages/songs/songs.component';
+import { AlbumDetailsComponent } from './pages/album-details/album-details.component';
 
 const routes: Routes = [
   { path: '', component: SignupComponent },
@@ -26,9 +27,11 @@ const routes: Routes = [
       { path: 'artist', component: ArtistsComponent, canActivate: [AuthGuard] },
       { path: 'artist-details/:id', component: ArtistDetailsComponent, canActivate: [AuthGuard] },
       { path: 'album', component: AlbumComponent, canActivate: [AuthGuard] },
+      { path: 'album-details/:id', component: AlbumDetailsComponent, canActivate: [AuthGuard] },
       { path: 'song', component: SongsComponent, canActivate: [AuthGuard] }
     ]
-  }
+  },
+
 ];
 
 @NgModule({

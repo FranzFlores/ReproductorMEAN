@@ -7,10 +7,8 @@ var path = require('path');
 var fs = require('fs');
 var AlbumController = {};
 
-AlbumController.createAlbum = (req, res) => {     
-    //Revisar si el album ya ha sido agregado 
-    console.log(req.body);
-    
+AlbumController.createAlbum = (req, res) => {
+    //Revisar si el album ya ha sido agregado     
     Album.find({ title: req.body.title, artistId: req.body.artist }, (err, results) => {
         if (err) {
             console.log(err);
@@ -65,9 +63,21 @@ AlbumController.getAlbums = (req, res) => {
     });
 };
 
+AlbumController.getAlbum = (req, res) => {
+    Album.findById(req.params.id).populate({
+        path: 'artistId', model: 'Artist', select: 'name',
+    }).populate({
+        path: 'songs',model:'Song',select:['number','title']
+    })
+    .exec((err, albums) => {
+        if (err) res.status(500).send("Error");
+        else res.status(200).send(albums);
+    });
+};
+
 AlbumController.getAlbumsByStatus = (req, res) => {
     console.log(req.body);
-    
+
     Album.find({ status: req.body.status }).populate({ path: 'artistId', model: 'Artist', select: 'name' }).exec((err, albums) => {
         if (err) res.status(500).send("Error");
         else res.status(200).send(albums);

@@ -1,3 +1,6 @@
+import { Artist } from './artist';
+import {Song} from './song';
+
 export class Album {
     constructor(
         _id = '',
@@ -5,19 +8,21 @@ export class Album {
         year = 0,
         gender = '',
         status = true,
-        artistId = ''
+        image='',
     ) {
         this._id = _id;
         this.title = title;
         this.year = year;
         this.gender = gender;
         this.status = status;
-        this.artistId = artistId;
+        this.image = image;
     }
     _id: string;
     title: string;
     year: number;
     gender: string;
     status: boolean;
-    artistId: string;
+    image: string;
+    artistId: Artist;
+    songs:Song[];
 }

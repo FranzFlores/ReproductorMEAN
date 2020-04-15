@@ -11,6 +11,7 @@ var md_upload = multipart({ uploadDir: './server/uploads/albums' });
 router.post('/createAlbum',md_auth.ensureAuth,albumController.createAlbum);
 router.get('/albums',md_auth.ensureAuth,albumController.getAlbums);
 router.post('/albumsByStatus',md_auth.ensureAuth,albumController.getAlbumsByStatus);
+router.get('/getAlbum/:id',md_auth.ensureAuth,albumController.getAlbum);
 router.put('/updateAlbum/:id',md_auth.ensureAuth,albumController.updateAlbum);
 router.put('/deleteAlbum/:id',md_auth.ensureAuth,albumController.deleteAlbum);
 router.put('/restoreAlbum/:id',md_auth.ensureAuth,albumController.restoreAlbum);

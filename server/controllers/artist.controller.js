@@ -57,9 +57,6 @@ ArtistController.getArtist = (req,res) =>{
             res.status(200).send(artist);
         }
     })
-    // Artist.findById(req.params.id,(err,artist)=>{
-
-    // });
 };
 
 

@@ -12,7 +12,11 @@ var albumSchema = new Schema({
     artistId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Artist"
-    }
+    },
+    songs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Song"
+    }]
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 module.exports = mongoose.model("Album", albumSchema);
