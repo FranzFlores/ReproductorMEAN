@@ -14,6 +14,7 @@ import { ArtistDetailsComponent } from './pages/artist-details/artist-details.co
 import { SongsComponent } from './pages/songs/songs.component';
 import { AlbumDetailsComponent } from './pages/album-details/album-details.component';
 
+
 const routes: Routes = [
   { path: '', component: SignupComponent },
   { path: 'login', component: LoginComponent },

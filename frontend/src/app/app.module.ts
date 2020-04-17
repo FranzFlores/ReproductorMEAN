@@ -26,6 +26,7 @@ import { SongsComponent } from './pages/songs/songs.component';
 import { AlbumDetailsComponent } from './pages/album-details/album-details.component';
 import { PlayerComponent } from './components/player/player.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
