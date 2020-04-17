@@ -1,3 +1,5 @@
+import { Album } from './album';
+
 export class Song {
     constructor(
         _id = '',
@@ -5,7 +7,7 @@ export class Song {
         number = 0,
         file = '',
         reproductions = 0,
-        albumId = '',
+        // albumId = '',
         status = true,
     ){
         this._id = _id;
@@ -13,7 +15,7 @@ export class Song {
         this.number = number;
         this.file = file;
         this.reproductions = reproductions;
-        this.albumId = albumId;
+        // this.albumId = albumId;
         this.status = status;
     }
 
@@ -22,6 +24,6 @@ export class Song {
     number:number;
     file: string;
     reproductions: number;
-    albumId: string;
+    albumId: Album;
     status:boolean;    
 }

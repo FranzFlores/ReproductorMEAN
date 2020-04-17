@@ -40,7 +40,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let song of songService.songs | paginate:{itemsPerPage:25, currentPage:pages} ">
+            <tr *ngFor="let song of songService.songs | paginate:{itemsPerPage:25, currentPage:pages}" (click)="startPlayer(song)">
                 <td>{{song.title}}</td>
                 <td>{{song.number}}</td>
                 <td>{{song.albumId.title}}</td>

@@ -1,5 +1,7 @@
 'use strict'
 
+var path = require('path');
+var fs = require('fs');
 var Song = require('../models/song.model');
 var Album = require('../models/album.model');
 var SongController = {};
@@ -54,7 +56,7 @@ SongController.createSong = (req, res) => {
 
 SongController.getSongs = (req, res) => {
     Song.find({ status: true }).populate({
-        path: 'albumId', model: 'Album', select: 'title',
+        path: 'albumId', model: 'Album', select: ['title','image'],
         populate: { path: 'artistId', model: 'Artist', select: 'name' }
     }).exec((err, songs) => {
         if (err) {
@@ -69,7 +71,7 @@ SongController.getSongs = (req, res) => {
 
 SongController.getSong = (req, res) => {
     Song.find({ status: true }).populate({
-        path: 'albumId', model: 'Album', select: 'title',
+        path: 'albumId', model: 'Album', select: ['title','image'],
         populate: { path: 'artistId', model: 'Artist', select: 'name' }
     }).exec((err, songs) => {
         if (err) {
@@ -83,7 +85,7 @@ SongController.getSong = (req, res) => {
 
 SongController.getSonsByStatus = (req, res) => {
     Song.find({ status: req.body.status }).populate({
-        path: 'albumId', model: 'Album', select: 'title',
+        path: 'albumId', model: 'Album', select:  ['title','image'],
         populate: { path: 'artistId', model: 'Artist', select: 'name' }
     }).exec((err, songs) => {
         if (err) {

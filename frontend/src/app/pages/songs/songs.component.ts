@@ -137,4 +137,20 @@ export class SongsComponent implements OnInit {
     });
   }
 
+  startPlayer(song:Song){
+    console.log(song.albumId);
+  
+    let file_path = "http://localhost:3000/api/song/getSongFile/"+song.file;
+
+    let album_image = "http://localhost:3000/api/album/getImageAlbum/"+song.albumId.image;
+
+    //Guarda en el local Storage la informacion de la cancion sonando
+    localStorage.setItem('soundSong',JSON.stringify(song));
+    document.getElementById("player").setAttribute("src",file_path);
+    document.getElementById("imageAlbum").setAttribute("src",album_image);
+
+    (document.getElementById("player") as any).play();
+
+  }
+
 }

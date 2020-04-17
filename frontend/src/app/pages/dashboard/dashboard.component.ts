@@ -32,9 +32,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.selectUser.image = this.auth.userData.image;
-    this.userService.selectUser.name = this.auth.userData.name;      
-  }
+    this.userService.selectUser.name = this.auth.userData.name;   
 
+  }
 
   logout(event){
     this.auth.logout();

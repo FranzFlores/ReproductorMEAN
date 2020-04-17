@@ -1,2 +1,25 @@
 
-<h2 style="background-color: aqua;">Player</h2>
+<div class="">
+    <div class="row">
+            <div class="image">
+                
+                <img *ngIf="song==null;else albumImage" src="../../../assets/images/album.jpg" alt="" id="imageAlbum" width="100px">
+                <ng-template #albumImage>
+                    <img src="http://localhost:3000/api/album/getImageAlbum/{{song.albumId.image}}" alt="" id="imageAlbum" width="100px">
+                </ng-template>
+            </div>
+            
+            <div class="audio-file">
+
+                <p>Reproduciendo</p>
+                <span id="play-song">
+                    {{song.title}} -
+                    {{song.albumId.artistId.name}}
+                </span>
+                <audio controls autoplay #audio class="player" id="player" src="http://localhost:3000/api/song/getSongFile/{{song.file}}"></audio>
+            </div>
+    </div>
+   
+
+
+</div>
