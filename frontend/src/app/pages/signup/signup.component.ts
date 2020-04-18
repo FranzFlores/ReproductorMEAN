@@ -6,7 +6,6 @@ import { UserService } from 'src/app/_services/user.service';
 import { AlertService } from "../../_services/alert.service";
 
 import { first } from 'rxjs/operators';
-import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-signup',
@@ -18,24 +17,59 @@ export class SignupComponent implements OnInit {
   constructor(
     public userService: UserService,
     private alertService: AlertService,
-    private router:Router
-    ) { }
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  createAccount(form?: NgForm) {    
+  //Creacion de la cuenta
+  createAccount(form?: NgForm) {
     if (form.valid) {
-      this.userService.signup(form.value).pipe(first())
-        .subscribe(
-          data => {
-            this.router.navigate(['/login'])
-          }, error => {
-            console.log(error);
-            this.alertService.error("Ocurrió un error al registrar usuario");
-          })
-    }else{
+      if (this.emailValid(form.value.email) && this.passwordValid(form.value.password)) {
+        this.userService.signup(form.value).pipe(first())
+          .subscribe(
+            data => {
+              var message = data as any;
+              if (message.msg == "Exist") {
+                this.alertService.error("El usuario ya se encuentra registrado");
+              } else {
+                this.router.navigate(['/login']);
+              }
+            }, error => {
+              console.log(error);
+              this.alertService.error("Ocurrió un error al registrar usuario");
+            })
+      } else {
+        this.alertService.error("Datos incorrectos en correo o contraseña");
+      }
+    } else {
       this.alertService.error("Complete todos los campos");
     }
   }
+
+  // Comprobar si es correcto el correo electronico
+  emailValid(email: string) {
+    let correctEmail = false;
+    var EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (email.match(EMAIL_REGEX)) {
+      correctEmail = true;
+    }
+
+    return correctEmail;
+  }
+
+  //Comprobar si ingreso una contrasena segura
+  passwordValid(password: string) {
+    let correctPassword = false;
+
+    if (password.length > 6) {
+      correctPassword = true;
+    }
+
+    return correctPassword;
+  }
+
+
 }

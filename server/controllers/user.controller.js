@@ -16,7 +16,7 @@ UserController.createUser = (req, res) => {
             res.status(500).send({ msg: 'Error al guardar el usuario' });
         } else {
             if (personResult) {
-                res.status(200).send({ msg: 'El usuario ya esta registrado' });
+                res.status(200).send({ msg: 'Exist' });
             } else {
                 new User({
                     name: req.body.name,
