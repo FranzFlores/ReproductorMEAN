@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { faSignOutAlt, faMusic,faAddressCard,faUserFriends,faPlayCircle,faDrum,faCog} from '@fortawesome/free-solid-svg-icons';
@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   accountIcon = faAddressCard;
   exitIcon = faSignOutAlt;
 
+ 
+
   constructor(
     public auth: AuthService,
     public userService:UserService,
@@ -40,6 +42,10 @@ export class DashboardComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/'])
     event.preventDefault();
+  }
+
+  toggleSidebar(){
+    document.getElementById('left-bar').classList.toggle('active');
   }
 
 }

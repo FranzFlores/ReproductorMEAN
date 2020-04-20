@@ -1,39 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 #dashboard{
     height: 100%;
 }
 
+
 #left-bar{
     position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 25%;
+    width: 220px;
     height: 100%;
     color: white;
     background-color: #1c1c1f;
-    padding: 70px 30px 70px 85px;
+    left: -220px;
+    transition: all 500ms linear;
+}
+
+#left-bar.active{
+    left: 0;
+}
+
+#left-bar .toggle-btn{
+    position: absolute;
+    left: 230px;
+    top: 20px;
+    cursor: pointer;
+}
+
+#left-bar .toggle-btn span{
+    display: block;
+    width: 45px;
+    text-align: center;
+    font-size: 30px;
+    border: 1px solid #000;
+    color: #000 !important;
 }
 
 h2{
     font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.image-container{
+    margin-bottom: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.image-user{
+    border-radius: 100px;
+    width: 90px;
+    margin: 10px;
 }
 
 .name{
     font-size: 15px;
     font-weight: bold;
     margin-left: -25px;
+    text-align: center;
 }
 
-.image-user{
-    border-radius: 100px;
-    width: 65px;
-}
 
-.image-container{
-    margin-bottom: 10px;
-    position: relative;
-    padding: 8px 20px 8px 45px;
-}
+
+
 
 #menu a{
     position: relative;
