@@ -1,41 +1,21 @@
 *{
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
-
-#dashboard{
-    height: 100%;
-}
-
 
 #left-bar{
     position: fixed;
-    width: 220px;
+    width: 250px;
     height: 100%;
     color: white;
     background-color: #1c1c1f;
-    left: -220px;
+    left: -250px;
     transition: all 500ms linear;
 }
 
 #left-bar.active{
     left: 0;
-}
-
-#left-bar .toggle-btn{
-    position: absolute;
-    left: 230px;
-    top: 20px;
-    cursor: pointer;
-}
-
-#left-bar .toggle-btn span{
-    display: block;
-    width: 45px;
-    text-align: center;
-    font-size: 30px;
-    border: 1px solid #000;
-    color: #000 !important;
 }
 
 h2{
@@ -56,16 +36,36 @@ h2{
     margin: 10px;
 }
 
+.toggle-btn{
+    position: relative;
+    cursor: pointer;
+}
+
+
+
+
+#left-bar .toggle-btn{
+    position: absolute;
+    left: 230px;
+    top: 20px;
+    cursor: pointer;
+}
+
+#left-bar .toggle-btn span{
+    display: block;
+    width: 45px;
+    text-align: center;
+    font-size: 30px;
+    border: 1px solid #000;
+    color: #000 !important;
+}
+
 .name{
     font-size: 15px;
     font-weight: bold;
     margin-left: -25px;
     text-align: center;
 }
-
-
-
-
 
 #menu a{
     position: relative;
@@ -87,20 +87,29 @@ h2{
 }
 
 
-#content{
-    background-color: #fff5f5;
-    height: 100%;
-    margin-left: 340px;
-    margin-bottom: 7.5%;
-    padding: 30px 40px;
-    overflow: scroll;
-    overflow-y: auto;
-}
-
 .active{
     border-bottom: 4px solid #84BD00;
     padding-bottom: 4px;
 }
+
+#content{
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    padding: 0px 30px;
+    overflow-y:scroll;
+    transition: all 500ms linear;
+} 
+
+#content.all{
+    left: 250px;
+    overflow-y:scroll;
+    width: 83.7%;
+}
+
+
+
 
 
 /* Reproductor */

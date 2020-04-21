@@ -1,8 +1,5 @@
 <div id="dashboard">
     <div id="left-bar">
-        <div class="toggle-btn" (click)="toggleSidebar()">
-            <span>&#9776;</span>
-        </div>
         <h2>Bienvenido</h2>
         <div id="menu">
             <div class="image-container">
@@ -36,6 +33,9 @@
         </div>
     </div>
     <div id="content">
+        <div class="toggle-btn" (click)="toggleSidebar()">
+            <span>&#9776;</span>
+        </div>
         <router-outlet></router-outlet>
     </div>
 </div>

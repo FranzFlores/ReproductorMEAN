@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
 
   toggleSidebar(){
     document.getElementById('left-bar').classList.toggle('active');
+    document.getElementById('content').classList.toggle('all');
   }
 
 }
