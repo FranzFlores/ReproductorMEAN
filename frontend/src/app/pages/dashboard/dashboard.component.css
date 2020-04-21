@@ -35,31 +35,6 @@ h2{
     width: 90px;
     margin: 10px;
 }
-
-.toggle-btn{
-    position: relative;
-    cursor: pointer;
-}
-
-
-
-
-#left-bar .toggle-btn{
-    position: absolute;
-    left: 230px;
-    top: 20px;
-    cursor: pointer;
-}
-
-#left-bar .toggle-btn span{
-    display: block;
-    width: 45px;
-    text-align: center;
-    font-size: 30px;
-    border: 1px solid #000;
-    color: #000 !important;
-}
-
 .name{
     font-size: 15px;
     font-weight: bold;
@@ -86,7 +61,6 @@ h2{
     color: #fff;
 }
 
-
 .active{
     border-bottom: 4px solid #84BD00;
     padding-bottom: 4px;
@@ -108,18 +82,29 @@ h2{
     width: 83.7%;
 }
 
+.toggle-btn{
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
 
-
-
+.toggle-btn span{
+    display: block;
+    width: 38px;
+    text-align: center;
+    font-size: 25px;
+    border: 1px solid #000;
+    color: #000 !important;
+}
 
 /* Reproductor */
 .player{
     background-color: #1C1C1F;
-    position: fixed;
+    position: relative;
+    margin:auto;
     width: 75%;
-    left: 26%;
     bottom: 0px;
     padding: 20px;
-    margin-left: -15px;
     border-left: 1px solid #444;
 }
