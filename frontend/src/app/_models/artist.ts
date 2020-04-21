@@ -6,7 +6,7 @@ export class Artist {
         name = '',
         description = '',
         image = '',
-        status = true,
+        status = false,
       
     ){
         this._id = _id;

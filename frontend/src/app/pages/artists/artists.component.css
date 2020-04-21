@@ -2,3 +2,13 @@
     background-color: #424242;
     color: white;
 }
+
+.card-title{
+    color:#fafafa;
+}
+
+
+a:hover{
+    color:#e0e0e0;
+    text-decoration: none;
+}

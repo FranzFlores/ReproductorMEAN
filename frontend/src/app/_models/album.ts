@@ -7,7 +7,7 @@ export class Album {
         title = '',
         year = 0,
         gender = '',
-        status = true,
+        status = 1,
         image='',
     ) {
         this._id = _id;
@@ -21,7 +21,7 @@ export class Album {
     title: string;
     year: number;
     gender: string;
-    status: boolean;
+    status: number;
     image: string;
     artistId: Artist;
     songs:Song[];

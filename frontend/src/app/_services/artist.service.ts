@@ -41,8 +41,8 @@ export class ArtistService {
   }
 
   //Obtener artistas por estado
-  getArtistsByStatus(artist: Artist) {
-    return this.http.post(`${this.URL_API}/allArtists`, artist);
+  getArtistsByStatus(status: any) {
+    return this.http.post(`${this.URL_API}/allArtists`, status);
   }
 
   //Obtener artista por id

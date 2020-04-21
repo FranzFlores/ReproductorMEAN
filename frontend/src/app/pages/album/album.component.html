@@ -42,12 +42,12 @@
                             data-target="#editAlbumModal" class="btn btn-success mr-1" (click)="selectAlbum(album)">
                             <fa-icon [icon]="editIcon"></fa-icon> Editar
                         </button>
-                        <button *ngIf="albumService.selectAlbum.status==true AND auth.userData.role == 'Administrador'"
+                        <button *ngIf="albumService.selectAlbum.status==1 AND auth.userData.role == 'Administrador'"
                             data-toggle="modal" data-target="#deleteAlbumModal" class="btn btn-danger ml-1"
                             (click)="selectAlbum(album)">
                             <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
                         </button>
-                        <button *ngIf="albumService.selectAlbum.status==false AND auth.userData.role == 'Administrador'"
+                        <button *ngIf="albumService.selectAlbum.status==0 AND auth.userData.role == 'Administrador'"
                             data-toggle="modal" data-target="#restoreAlbumModal" class="btn btn-primary ml-1"
                             (click)="selectAlbum(album)">
                             <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar

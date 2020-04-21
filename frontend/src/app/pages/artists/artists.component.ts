@@ -37,6 +37,7 @@ export class ArtistsComponent implements OnInit {
 
   ngOnInit(): void {
     this.artistService.selectArtist = new Artist();
+    this.artistService.selectArtist.status = true;
     this.artistsList();
   }
 
@@ -55,9 +56,10 @@ export class ArtistsComponent implements OnInit {
   }
 
   artistsList() {
-    this.artistService.getArtists().subscribe(res => {
+    var status = {status: true}
+    this.artistService.getArtistsByStatus(status).subscribe(res=>{
       this.artistService.artists = res as Artist[];
-    })
+    });
   }
 
   //Seleccionar el artista

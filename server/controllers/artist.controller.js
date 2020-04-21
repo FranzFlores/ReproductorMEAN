@@ -26,19 +26,9 @@ ArtistController.createArtist = (req, res) => {
     });
 };
 
-ArtistController.getArtists = (req, res) => {
-    Artist.find({ status: true }).populate({ path: 'albums', model: 'Album', select: 'title' }).exec((err, artists) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send({ msg: 'Ocurrió un error al obtener artistas' });
-        } else {
-            res.status(200).send(artists);
-        }
-    });
-};
 
-ArtistController.getArtistsByStatus = (req, res) => {    
-    Artist.find({ status: req.body.status }).populate({ path: 'albums', model: 'Album', select: 'title' }).exec((err, artists) => {
+ArtistController.getArtistsByStatus = (req, res) => {        
+    Artist.find({ status: req.body.status }).populate({ path: 'albums', model: 'Album', select: 'title' }).sort('name').exec((err, artists) => {
         if (err) {
             console.log(err);
             res.status(500).send({ msg: 'Ocurrió un error al obtener artistas' });
