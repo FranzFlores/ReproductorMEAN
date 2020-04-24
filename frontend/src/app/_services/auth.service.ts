@@ -36,6 +36,7 @@ export class AuthService {
   //Remueve la informacion almacenada en el localStorage
   logout() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('soundSong');
   }
 
   //Obtiene la informacion almacenada en el localStorage
