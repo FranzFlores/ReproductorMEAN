@@ -56,8 +56,8 @@ AlbumController.createAlbum = (req, res) => {
     });
 };
 
-AlbumController.getAlbums = (req, res) => {
-    Album.find({ status: true }).populate({ path: 'artistId', model: 'Artist', select: 'name' }).exec((err, albums) => {
+AlbumController.getAlbumsByStatus = (req, res) => {
+    Album.find({ status: req.body.status }).populate({ path: 'artistId', model: 'Artist', select: 'name' }).exec((err, albums) => {
         if (err) res.status(500).send("Error");
         else res.status(200).send(albums);
     });
@@ -67,22 +67,15 @@ AlbumController.getAlbum = (req, res) => {
     Album.findById(req.params.id).populate({
         path: 'artistId', model: 'Artist', select: 'name',
     }).populate({
-        path: 'songs',model:'Song',select:['number','title']
+        path: 'songs', model: 'Song', select: ['number', 'title']
     })
-    .exec((err, albums) => {
-        if (err) res.status(500).send("Error");
-        else res.status(200).send(albums);
-    });
+        .exec((err, albums) => {
+            if (err) res.status(500).send("Error");
+            else res.status(200).send(albums);
+        });
 };
 
-AlbumController.getAlbumsByStatus = (req, res) => {
-    console.log(req.body);
 
-    Album.find({ status: req.body.status }).populate({ path: 'artistId', model: 'Artist', select: 'name' }).exec((err, albums) => {
-        if (err) res.status(500).send("Error");
-        else res.status(200).send(albums);
-    });
-};
 
 AlbumController.updateAlbum = (req, res) => {
     var albumUpdated = {

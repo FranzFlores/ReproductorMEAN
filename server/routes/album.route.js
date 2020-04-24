@@ -9,7 +9,6 @@ const multipart = require('connect-multiparty');
 var md_upload = multipart({ uploadDir: './server/uploads/albums' });
 
 router.post('/createAlbum',md_auth.ensureAuth,albumController.createAlbum);
-router.get('/albums',md_auth.ensureAuth,albumController.getAlbums);
 router.post('/albumsByStatus',md_auth.ensureAuth,albumController.getAlbumsByStatus);
 router.get('/getAlbum/:id',md_auth.ensureAuth,albumController.getAlbum);
 router.put('/updateAlbum/:id',md_auth.ensureAuth,albumController.updateAlbum);

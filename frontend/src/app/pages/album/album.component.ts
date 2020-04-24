@@ -39,6 +39,8 @@ export class AlbumComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.albumService.selectAlbum = new Album();
+    this.albumService.selectAlbum.status = true;
     this.artistList();
     this.albumsList();
   }
@@ -65,6 +67,14 @@ export class AlbumComponent implements OnInit {
     }
   }
 
+  //listado de Albums
+  albumsList() {
+    var status = {status: true}
+    this.albumService.getAlbumsByStatus(status).subscribe(data => {
+      this.albumService.albums = data as Album[];
+    });
+  }
+
   //Actualizar informacion del Album
   updateAlbum(form: NgForm) {
     if (form.valid) {
@@ -80,13 +90,7 @@ export class AlbumComponent implements OnInit {
     }
   }
 
-  //listado de Albums
-  albumsList() {
-    this.albumService.getAlbums().subscribe(data => {
-      this.albumService.albums = data as Album[];
-      console.log(this.albumService.albums);
-    });
-  }
+
 
   //Seleccionar Album
   selectAlbum(album: Album) {

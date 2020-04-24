@@ -36,9 +36,7 @@
                     <img class="card-img-top" src="http://localhost:3000/api/artist/getImageArtist/{{artist.image}}"
                         alt="image artist" height="300px">
                     <div class="card-body text-center">
-                        <a routerLink="../../dashboard/artist-details/{{artist._id}}">
-                            <h5 class="card-title">{{artist.name}}</h5>
-                        </a>
+                        <a routerLink="../../dashboard/artist-details/{{artist._id}}" class="card-title">{{artist.name}}</a>
                         <p class="card-text">{{artist.description}}</p>
                         <div *ngIf="auth.userData.role == 'Administrador'">
                             <div *ngIf="artistService.selectArtist.status;else restoreButton">

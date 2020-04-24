@@ -49,7 +49,7 @@ export class AlbumService {
   }
    
   //Obtener los album por estado
-  getAlbumsByStatus(album:Album){    
+  getAlbumsByStatus(album:any){    
     return this.http.post(`${this.URL_API}/albumsByStatus`,album);
   }
 
