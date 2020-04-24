@@ -1,0 +1,8 @@
+.alert{
+    border: none;
+}
+
+.alert-danger{
+    background-color: #d03544;
+    color: #ffffff;
+}

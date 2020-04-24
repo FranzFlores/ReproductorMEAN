@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#left-bar{
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    color: white;
+    background-color: #1c1c1f;
+    left: -250px;
+    transition: all 500ms linear;
+}
+
+#left-bar.active{
+    left: 0;
+}
+
+h2{
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.image-container{
+    margin-bottom: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.image-user{
+    border-radius: 100px;
+    width: 90px;
+    margin: 10px;
+}
+.name{
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -25px;
+    text-align: center;
+}
+
+#menu a{
+    position: relative;
+    display: block;
+    color: #ddd;
+    padding: 8px 20px 8px 45px;
+    margin-bottom: 5px;
+}
+
+#menu i{
+    position: absolute;
+    top: 11px;
+    left: 25px;
+}
+
+#menu a:hover{
+    text-decoration: none;
+    color: #fff;
+}
+
+.active{
+    border-bottom: 4px solid #84BD00;
+    padding-bottom: 4px;
+}
+
+#content{
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    padding: 0px 30px;
+    overflow-y:scroll;
+    transition: all 500ms linear;
+} 
+
+#content.all{
+    left: 250px;
+    overflow-y:scroll;
+    width: 83.7%;
+}
+
+.toggle-btn{
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.toggle-btn span{
+    display: block;
+    width: 38px;
+    text-align: center;
+    font-size: 25px;
+    border: 1px solid #000;
+    color: #000 !important;
+}
+
+/* Reproductor */
+.player{
+    background-color: #1C1C1F;
+    position: relative;
+    margin:auto;
+    width: 75%;
+    bottom: 0px;
+    padding: 20px;
+    border-left: 1px solid #444;
+}

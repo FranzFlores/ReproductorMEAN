@@ -1,0 +1,9 @@
+.administrador{
+    background-color: #757575;
+    color: aliceblue;
+}
+
+.administrador:hover{
+    background-color: #bdbdbd;
+    color: black;
+}

@@ -1,0 +1,151 @@
+<div class="container-fluid">
+
+    <!-- Page title  -->
+    <div class="title-page">
+        <div class="row align-items-center">
+          <div class="col">
+            <h2 class="mb-0">Gestión de <b>Cuentas</b></h2>
+          </div>
+          <div class="col-3 text-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAccountModal" (click)="resetObject()">
+                <fa-icon [icon]="addIcon"></fa-icon>  Agregar Administrador
+            </button>
+          </div>
+        </div>
+      </div>  
+
+    <!-- Page title  -->
+
+    <app-alert></app-alert>
+
+    <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo Electrónico</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userService.users | paginate:{itemsPerPage:25, currentPage:pages} ">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <td>
+                    <button *ngIf="user.status == true" type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#deleteAccount" (click)="selectUser(user)">
+                        <fa-icon [icon]="deleteIcon"></fa-icon>
+                    </button>
+                    <button *ngIf="user.status == false" type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#restoreAccount" (click)="selectUser(user)">
+                        <fa-icon [icon]="restoreIcon"></fa-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <pagination-controls autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
+            (pageChange)="pages = $event"></pagination-controls>
+    </div>
+
+        <!-- Modal Agregar Administrador una cuenta -->
+        <div class="modal fade" id="addAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Administrador</h5>
+                    <button #btn_administrador type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #administradorForm="ngForm" (ngSubmit)="createAdministrador(administradorForm)">
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" type="text" name="name" placeholder="Nombres y Apellidos" required autocomplete="off"
+                            [(ngModel)]="userService.selectUser.name">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" type="text" name="userName" placeholder="Nombre de Usuario" required autocomplete="off"
+                            [(ngModel)]="userService.selectUser.userName">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" type="email" name="email" placeholder="Correo Electrónico" required autocomplete="off"
+                            [(ngModel)]="userService.selectUser.email">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" type="password" name="password" placeholder="Contraseña" required autocomplete="off"
+                            [(ngModel)]="userService.selectUser.password">
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-lg administrador">Crear Administrador</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal Dar de Baja una cuenta -->
+    <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea eliminar la cuenta?</p>
+                    <form #deleteUserForm="ngForm" (ngSubmit)="deleteUser(deleteUserForm)">
+                        <input type="text" hidden name="id" #name="ngModel" [(ngModel)]="userService.selectUser._id">
+                        <div class="modal-footer">
+                            <button #btn_delete_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Restaurar una cuenta -->
+    <div class="modal fade" id="restoreAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Restaurar Cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea restaurar la cuenta?</p>
+                    <form #restoreUserForm="ngForm" (ngSubmit)="restoreUser(restoreUserForm)">
+                        <input type="text" hidden name="id" #name="ngModel" [(ngModel)]="userService.selectUser._id">
+                        <div class="modal-footer">
+                            <button #btn_restore_close type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

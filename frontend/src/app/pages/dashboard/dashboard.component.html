@@ -1,0 +1,45 @@
+<div id="dashboard">
+    <div id="left-bar">
+        <h2>Bienvenido</h2>
+        <div id="menu">
+            <div class="image-container">
+                <img src="http://localhost:3000/api/user/getImageUser/{{userService.selectUser.image}}"
+                    class="image-user" alt="">
+                <p class="name">{{userService.selectUser.name}}</p>
+            </div>
+            <nav>
+                <ul class="list-unstyled">
+                    <li><a routerLink="./artist" [routerLinkActive]="['active']">
+                            <fa-icon [icon]="artistIcon"></fa-icon> Artistas
+                        </a></li>
+                    <li><a routerLink="./album" [routerLinkActive]="['active']">
+                            <fa-icon [icon]="albumIcon"></fa-icon> Álbumes
+                        </a></li>
+                    <li><a routerLink="./song" [routerLinkActive]="['active']">
+                            <fa-icon [icon]="songIcon"></fa-icon> Canciones
+                        </a></li>
+                    <li><a routerLink="./settings" [routerLinkActive]="['active']">
+                            <fa-icon [icon]="configurationIcon"></fa-icon> Configuración
+                        </a></li>
+                    <li><a *ngIf="auth.userData.role == 'Administrador'" routerLink="./account"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="accountIcon"></fa-icon> Gestión de Cuentas
+                        </a></li>
+                    <li><a href="#" (click)="logout($event)">
+                            <fa-icon [icon]="exitIcon"></fa-icon> Cerrar Sesión
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div id="content">
+        <div class="toggle-btn" (click)="toggleSidebar()">
+            <span>&#9776;</span>
+        </div>
+        <router-outlet></router-outlet>
+        <div class="player">
+            <app-player></app-player>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,9 @@
+h2{font-size:1.5em;}
+
+/* Enlace de link */
+.login-link{ color: #8bc34a; }
+
+.login-link:hover{
+    color: #689f38;
+    text-decoration: none;
+}

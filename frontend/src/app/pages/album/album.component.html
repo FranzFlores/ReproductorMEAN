@@ -1,0 +1,212 @@
+<h2 class="text-center">Álbumes</h2>
+
+<div class="container mb-2">
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <button *ngIf="auth.userData.role == 'Administrador'" type="button" class="btn btn-primary"
+                data-toggle="modal" data-target="#createAlbumModal" (click)="resetAlbum()">
+                <fa-icon [icon]="addIcon"></fa-icon> Agregar Álbum
+            </button>
+        </div>
+        <div class="offset-md-6"></div>
+        <div class="col-md-3">
+            <form #allAlbumsForm="ngForm">
+                <div class="search">
+                    <div class="form-group">
+                        <select #date="ngModel" [(ngModel)]="albumService.selectAlbum.status" class="custom-select"
+                            name="status" (change)="getAlbumsByStatus(allAlbumsForm)">
+                            <option value="false">Eliminados</option>
+                            <option value="true">Activos</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-alert></app-alert>
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-4" *ngFor="let album of albumService.albums | paginate:{itemsPerPage:3, currentPage:pages} ">
+            <div class="card mt-2">
+                <img class="card-img-top" src="http://localhost:3000/api/album/getImageAlbum/{{album.image}}"
+                    alt="image artist" height="300px">
+                <div class="card-body text-center">
+                    <a routerLink="../album-details/{{album._id}}" class="card-title">{{album.title}}</a>
+                    <p class="card-text">{{album.artistId.name}}</p>
+                    <div *ngIf="auth.userData.role == 'Administrador'">
+                        <div *ngIf="albumService.selectAlbum.status;else restoreButton">
+                            <button data-toggle="modal" data-target="#editAlbumModal" class="btn btn-success mr-1"
+                                (click)="selectAlbum(album)">
+                                <fa-icon [icon]="editIcon"></fa-icon> Editar
+                            </button>
+                            <button data-toggle="modal" data-target="#deleteAlbumModal" class="btn btn-danger ml-1"
+                                (click)="selectAlbum(album)">
+                                <fa-icon [icon]="deleteIcon"></fa-icon> Eliminar
+                            </button>
+                        </div>
+                        <ng-template #restoreButton>
+                            <button data-toggle="modal" data-target="#restoreAlbumModal" class="btn btn-primary ml-1"
+                                (click)="selectAlbum(album)">
+                                <fa-icon [icon]="restoreIcon"></fa-icon> Restaurar
+                            </button>
+                        </ng-template>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <pagination-controls autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
+            (pageChange)="pages = $event"></pagination-controls>
+    </div>
+</div>
+
+<!-- Modal Agregar Album -->
+<div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Álbum</h5>
+                <button #btn_create_close type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #createAlbumForm="ngForm" (ngSubmit)="createAlbum(createAlbumForm)">
+                    <div class="form-group">
+                        <label for="title">Título del Álbum</label>
+                        <input class="form-control" name="title" type="text" placeholder="Título del Álbum" required
+                            autocomplete="off" [(ngModel)]="albumService.selectAlbum.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Año de Lanzamiento</label>
+                        <input class="form-control" name="year" type="text" placeholder="Año de Lanzamiento" required
+                            autocomplete="off" [(ngModel)]="albumService.selectAlbum.year">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Género del Álbum</label>
+                        <input class="form-control" name="gender" type="text" placeholder="Género del Álbum" required
+                            autocomplete="off" [(ngModel)]="albumService.selectAlbum.gender">
+                    </div>
+                    <div class="form-group">
+                        <label for="artist">Autor del Álbum</label>
+                        <select #date="ngModel" [(ngModel)]="albumService.selectAlbum.artistId" class="custom-select"
+                            name="artist" required>
+                            <option *ngFor="let artist of artistService.artists" value="{{artist._id}}">
+                                {{artist.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Crear Álbum</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Editar Album -->
+<div class="modal fade" id="editAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Álbum</h5>
+                <button #btn_edit_close type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #updateAlbumForm="ngForm" (ngSubmit)="updateAlbum(updateAlbumForm)">
+                    <div class="form-group">
+                        <label for="title">Título del Álbum</label>
+                        <input class="form-control" name="title" type="text" placeholder="Título del Álbum" required
+                            autocomplete="off" [(ngModel)]="albumService.selectAlbum.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Año de Lanzamiento</label>
+                        <input class="form-control" name="year" type="text" placeholder="Año de Lanzamiento" required
+                            autocomplete="off" [(ngModel)]="albumService.selectAlbum.year">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Género del Álbum</label>
+                        <input class="form-control" name="gender" type="text" placeholder="Género del Álbum" required
+                            autocomplete="off" [(ngModel)]="albumService.selectAlbum.gender">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Actualizar Álbum</button>
+                    </div>
+                </form>
+                <hr>
+                <div class="text-center mt-2 mb-2">
+                    <h4>Actualizar Imagen del Album</h4>
+                    <form #uploadImage="ngForm">
+                        <input type="file" lang="es" #imageAlbum accept="image/*">
+                        <button type="submit" class="btn btn-success mt-2" (click)="uploadAlbum(imageAlbum)">Subir
+                            foto de Álbum</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Dar de Baja un artista -->
+<div class="modal fade" id="deleteAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Álbum</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <b>¿Está seguro de que desea eliminar el álbum?</b><br>
+                <p style="font-size: 14px;"> Si acepta automaticamente se eliminarán canciones asociadas al
+                    álbum</p>
+                <form (ngSubmit)="deleteAlbum()">
+                    <div class="modal-footer">
+                        <button #btn_delete_close type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal restaurar un album -->
+<div class="modal fade" id="restoreAlbumModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Restaurar Álbum</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <b>¿Está seguro de que desea restaurar el álbum?</b><br>
+                <p style="font-size: 14px;"> Si acepta automaticamente se restaurarán canciones asociadas al
+                    álbum</p>
+                <form (ngSubmit)="restoreAlbum()">
+                    <div class="modal-footer">
+                        <button #btn_restore_close type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

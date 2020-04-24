@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="text-center">
+        <h2>Configuración de la Cuenta</h2>
+
+        <app-alert></app-alert>
+
+       
+
+        <div class="row">
+            <div class="offset-md-1"></div>
+            <div class="col-md-4">
+                <h4>Actualizar Datos de Usuario</h4>
+                <form #updateUserForm="ngForm" (ngSubmit)="updateUser(updateUserForm)">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="name" placeholder="Nombres y Apellidos" required
+                            autocomplete="off" [(ngModel)]="userService.selectUser.name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="userName" placeholder="Nombre de Usuario" required
+                            autocomplete="off" [(ngModel)]="userService.selectUser.userName">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="Correo Electrónico" required
+                            autocomplete="off" [(ngModel)]="userService.selectUser.email">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">Actualizar Datos</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h4>Actualizar Contraseña</h4>
+                <form #updatePasswordForm="ngForm" (ngSubmit)="updatePassword(updatePasswordForm)">
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="oldPassword" placeholder="Contraseña Antigua"
+                            required autocomplete="off" [(ngModel)]="userService.selectUser.oldPassword">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="newPassword" placeholder="Nueva Contraseña"
+                            required autocomplete="off" [(ngModel)]="userService.selectUser.newPassword">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">Actualizar Contraseña</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-4"></div>
+            <div class="col-md-4 text-center">
+                <h4>Actualizar foto de Perfil del Usuario</h4>
+                <div class="image-container" *ngIf="showImage">
+                    <img src="http://localhost:3000/api/user/getImageUser/{{userService.selectUser.image}}"
+                        class="image-edit" alt="">
+                </div>
+                <form #uploadUserForm="ngForm">
+                    <div class="form-group custom-file">
+                        <input type="file" lang="es" #imageUser accept="image/*">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success" (click)="uploadUserImage(imageUser)">Actualizar
+                            Foto de Perfil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
